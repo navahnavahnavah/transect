@@ -39,7 +39,7 @@ integer, parameter :: tn = 100000, mstep = 10000, wscale = 1, ison = 10, inertn 
 integer :: active_cells
 integer, parameter :: particle_sat = 1, inert_sat = 10
 real(8) :: x_min = 0.0D+00, x_max = 29000.0D+00, y_min = -2100.0D+00, y_max = 25.0
-real(8) :: t_min = 0.0D+00, t_max = 3.14e13!23.55e13 !9.42e13 !
+real(8) :: t_min = 0.0D+00, t_max = 1.57e13!23.55e13 !9.42e13 !
 real(8) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =4.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
 integer :: thresh=0, theta0
 real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right

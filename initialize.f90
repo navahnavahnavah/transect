@@ -63,7 +63,7 @@ real(8) :: perm2 = 1e-12
 
 
 real(8) :: frac6(yn,2), frac6_last(yn,2), temp6(yn,2), temp6_last(yn,2), temp6_mid(yn,2)
-integer :: f_index1 = xn-6, iter = 0, spinup = 2000
+integer :: f_index1 = xn-6, iter = 0, spinup = 4000
 
 
 real(8) :: temp6_a(yn), temp6_b(yn), temp6_c(yn), temp6_rhs(yn)
@@ -1551,7 +1551,7 @@ end if
  
 
 		if ((y(gg) .le. sed3(g))) then
-			permeability(g,gg) = 1e-18
+			permeability(g,gg) = 1e-16
 			medium(g,gg,5) = 0.0 ! NO REACTIONS IN DIKES
 		end if
 		
@@ -2109,10 +2109,10 @@ function psi_bc(psi_in)
 	do p=1,xn
 		do pp=2,yn-1
 
-			! top of sediment
-			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn)) then
-				psi_bc(p,pp+1) = 0.0
-			end if
+! 			! top of sediment
+! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn)) then
+! 				psi_bc(p,pp+1) = 0.0
+! 			end if
 
 ! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-1)) then
 ! 				psi_bc(p,pp+1) = 0.1e-5

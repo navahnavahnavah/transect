@@ -10,7 +10,7 @@
 # you want to run.
 #
 # set the name of the job
-#PBS -N dy_200
+#PBS -N h200_closed
 #
 # set the output and error files
 #PBS -o /data/navah/summer16/mOutG.txt
@@ -73,11 +73,11 @@ set PARAM_PAQ = '1e-12'
 set PARAM_CH_RHS = '600'
 
 ## FRACTURE PARAMS
-#set PARAM_F_DX = '-2.4'
+#set PARAM_F_DX = '-2.0'
 set PARAM_F_K = '1e-5'
 #set PARAM_F_FREQ = '0.0005'
 set PARAM_F_FREQ = '20'
-set PARAM_F_POR = '1e-4'
+set PARAM_F_POR = '1e-3'
  
 
 # set PARAM_PATH='/data/navah/scope_law/o'${PARAM_O}'s'${PARAM_SCOPE}'h'${PARAM_H}'orhs'${PARAM_O_RHS}'/'
@@ -99,7 +99,8 @@ set PARAM_F_POR = '1e-4'
 #set PARAM_PATH='/data/navah/jan16/june16/fractures_jdf/krhs_chrhs/chrhs'${PARAM_CH_RHS}'krhs'${PARAM_K_RHS}'/'
 #set PARAM_PATH='/data/navah/jan16/june16/fractures_jdf/crunch_noch1/w'${PARAM_W}'klhs'${PARAM_K_LHS}'/'
 
-set PARAM_PATH='/data/navah/summer16/output/dy_h200_k12/por'${PARAM_F_POR}'b'${PARAM_F_DX}'/'
+set PARAM_PATH='/data/navah/summer16/output/10_01_h200_closed_porf/por'${PARAM_F_POR}'b'${PARAM_F_DX}'/'
+#set PARAM_PATH='/data/navah/summer16/output/stagger2/'
 #set PARAM_PATH='/data/navah/summer16/output/test9/'
 
 #set PARAM_PATH='/data/navah/jan16/may16/id_h100_orhs500/shifter/'

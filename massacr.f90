@@ -2704,25 +2704,32 @@ if (restart .ne. 1) then
 ! 				end do
 !
 
-				if (mod(j,1000) .eq. 0) then
+				if (mod(j,2000) .eq. 0) then
 
-				do jj=1,10000000
+				do jj=1,100000
 
 					temp6 = temp6_mid
 					do ii=2,yn-1
 
-						if ((mask(f_index1-1,ii) .eq. 3.1)) then
-							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
+						if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
+							temp6_mid(ii,1) = temp6(ii,1) - param_f_por*frac6(ii,1)*(dt/(rho_fluid*param_f_dx*100000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
 						end if
-						if (mask(f_index1-1,ii) .eq. 3.0) then
-							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
-						end if
-						if (mask(f_index1-1,ii) .eq. 3.5) then
-							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
-						end if
+! 						if (mask(f_index1-1,ii) .eq. 3.0) then
+! 							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
+! 						end if
+! 						if (mask(f_index1-1,ii) .eq. 3.5) then
+! 							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
+! 						end if
 					end do
 
 				end do
+
+! ! TESTING SOMETHING
+! do ii=2,yn-1
+! 	if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
+! 		temp6_mid(ii,1) = 328.0
+! 	end if
+! end do
 
 				end if
 
@@ -2782,7 +2789,7 @@ if (restart .ne. 1) then
 				if ((maskP(f_index1,jj) .eq. 6.0) .or. (maskP(f_index1,jj) .eq. 6.5) .or. (maskP(f_index1,jj) .eq. 6.1)) then
 					!frac6(jj,1) = 1.0e-1!-(param_f_k*param_f_dx*g/(dy*viscosity*rho_fluid))*(rho_one(temp6(jj,1))*y(jj) - rho_one(temp6(jj-1,1))*y(jj-1))
 					!frac6(jj,1) = (param_f_k*param_f_dx*g/((y_top-y_base)*viscosity*rho_fluid))*(rho_one(h_top)*y_top - rho_one(h_base)*y_base)
-					frac6(jj,1) = -param_f_por*(param_f_dx*param_f_dx*param_f_dx*rho_fluid*grav/((y_top-y_base)*viscosity*12.0))*(rho_one(h_top)*y_top - rho_one(h_base)*y_base - rho_fluid*(y_top-y_base))
+					frac6(jj,1) = -param_f_por*param_f_dx*(param_f_dx*param_f_dx*rho_fluid*grav/((y_top-y_base)*viscosity*12.0))*(rho_one(h_top)*y_top - rho_one(h_base)*y_base - rho_fluid*(y_top-y_base))
 				end if
 			end do
 
@@ -5159,6 +5166,8 @@ do i=2,xn-1
 	
 	if ((maskP(i,ii) .eq. 3.0) .or. (maskP(i,ii) .eq. 3.5) .or. (maskP(i,ii) .eq. 3.1)) then
 		rhs1(i,ii) = rhs1(i,ii) + frac6_in(ii,1)*permx_right(i,ii)/(dx*dx)
+		!rhs1(i,ii) = rhs1(i,ii) + (frac6_in(ii,1)/(dx*dx))*phi_in(i,ii)*2.0*viscosity/(grav*rho_fluid*(rho_fluid*perm_in(i,ii) + (rho_fluid*param_f_dx*param_f_dx/12.0) ))
+		!rhs1(i,ii) = rhs1(i,ii) + (frac6_in(ii,1)/(dx*dx))*(phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_in(i,ii) + (param_f_dx*param_f_dx/12.0)*rho_fluid) / 2.0))
 	end if
 	
 
@@ -5394,6 +5403,7 @@ function make_band(perm_in,phi_in,permx,permy,rho_in)
 			if ((i .le. (longP)-((yn/2)-2)) .and. (maskPLongT(i) .ne. 5.0) .and. (maskPLongT(i) .ne. 12.5) .and. (maskPLongT(i) .ne. 3.0) .and. (maskPLongT(i) .ne. 3.5) .and. (maskPLongT(i) .ne. 3.1) .and. (maskPLongT(i) .ne. 3.05) .and. (maskPLongT(i) .ne. 3.01)) then
 				innerBand(i,m) = -permx_right_long(i)/(dx*dx)
 			end if
+		
 		
 			! all but bottom
 			if ((maskPLongT(i) .ne. 100.0) .or. (maskPLongT(i) .ne. 3.01) .or. (maskPLongT(i) .ne. 6.01)) then
