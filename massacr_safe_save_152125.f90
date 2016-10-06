@@ -2704,7 +2704,7 @@ if (restart .ne. 1) then
 ! 				end do
 !
 
-				if (mod(j,50) .eq. 0) then
+				if (mod(j,2000) .eq. 0) then
 
 				do jj=1,10000000
 
@@ -2723,9 +2723,6 @@ if (restart .ne. 1) then
 					end do
 
 				end do
-! 				write(*,*) "mod 50"
-! 				write(*,*) temp6(:,1)
-! 				write(*,*) " "
 
 ! ! TESTING SOMETHING
 ! do ii=2,yn-1
@@ -2760,7 +2757,7 @@ if (restart .ne. 1) then
 		visc = visc_next(h)
 			
 
- 
+
 
 		! solve streamfunction-vorticity equation
 
@@ -2771,61 +2768,42 @@ if (restart .ne. 1) then
 		! find properties at top and base of fracture
 		do jj=yn/2,yn-1
 			if (maskP(f_index1-1,jj) .eq. 3.1) then
-				h_base = temp6(jj-1,1) ! h(f_index1-1,jj)!
+				h_base = temp6(jj-1,1)
 				y_base = y(jj)
 				jj_base = jj
 			end if
 			if (maskP(f_index1-1,jj) .eq. 3.5) then
-				h_top = param_tsw ! temp6(jj,1)!
+				h_top = temp6(jj,1)!param_tsw
 				y_top = y(jj)
 				jj_top = jj
 			end if
 		end do
 		
-		h_adjacent = sum(temp6(jj_base:jj_top,1))/(jj_top-jj_base+1)
+		h_adjacent = sum(temp6(jj_base:jj_top,1))/(jj_top-jj_base)
 		
-! 		write(*,*) "tube temps"
-! 		write(*,*) temp6(jj_base:jj_top,1)
-!
-! 		write(*,*) "h_adjacent"
-! 		write(*,*) h_adjacent
-!
-! 		write(*,*) "jj_top"
-! 		write(*,*) jj_top
-!
-! 		write(*,*) "jj_base"
-! 		write(*,*) jj_base
-!
-! 		write(*,*) "rho_adjacent"
-! 		write(*,*) rho_one(h_adjacent)
-!
+		write(*,*) "jj_top"
+		write(*,*) jj_top
+		
+		write(*,*) "jj_base"
+		write(*,*) jj_base
+		
+		write(*,*) "h_adjacent"
+		write(*,*) h_adjacent
+		
 
 		if ((j .gt. spinup-1)) then
 			iter = 1
 		end if
 		
-! 		if ((j .eq. spinup-1)) then
-! 			h_adjacent = 273.0
-! 		end if
-		
 		
 		if (iter .eq. 1) then
-			!write(*,*) "loop of fracj 1"
+			
 			do jj=yn/2,yn-1
 				if ((maskP(f_index1,jj) .eq. 6.0) .or. (maskP(f_index1,jj) .eq. 6.5) .or. (maskP(f_index1,jj) .eq. 6.1)) then
 					!frac6(jj,1) = -param_f_por*param_f_dx*(param_f_dx*param_f_dx*rho_fluid*grav/((y_top-y_base)*viscosity*12.0))*(rho_one(h_top)*y_top - rho_one(h_base)*y_base - rho_fluid*(y_top-y_base))
-					frac6(jj,1) = -param_f_por*param_f_dx*(param_f_dx*param_f_dx*rho_fluid*grav/((y_top-y_base)*viscosity*12.0))*(rho_one(h_top)*(y_top-y_top) - rho_one(h_base)*(y_base-y_top) - rho_one(param_tsw)*(y_top-y_base))
-					!frac6(jj,1) = param_f_por*psi(f_index1-1,jj) + (dx*(12.0*(1.0e-16)*1.0)/(param_f_dx*param_f_dx*param_f_dx))
-					
-! 					write(*,*) "full frac6 jj 1"
-! 					write(*,*) frac6(jj,1)
-!
-! 					write(*,*) "extra bit"
-! 					write(*,*) (dx*(12.0*(1.0e-16)*1.0)/(param_f_dx*param_f_dx*param_f_dx))
-! 					write(*,*) " "
+					frac6(jj,1) = -param_f_por*param_f_dx*(param_f_dx*param_f_dx*rho_fluid*grav/((y_top-y_base)*viscosity*12.0))*(rho_one(h_top)*y_top - rho_one(h_base)*y_base - rho_one(h_adjacent)*(y_top-y_base))
 				end if
 			end do
-			!write(*,*) " "
 
 			psi = psi_next(h, rhs0, psi, rho, phi, permeability, outerBand, permx, permy, j/mstep,frac6)
 			psi = psi_bc(psi)
@@ -2835,12 +2813,9 @@ if (restart .ne. 1) then
 					if ((maskP(i,jj) .eq. 50.0) .and. (i .lt. f_index1)) then
 						psi(i,jj+1) = maxval(frac6(:,1))
 					end if
-! 					if ((maskP(i,jj) .eq. 3.5)) then
-! 						psi(i,jj+1) = maxval(frac6(:,1))
-! 					end if
 				end do
 			end do
-
+										
 						
 		end if
 				

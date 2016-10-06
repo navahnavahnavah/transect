@@ -63,7 +63,7 @@ real(8) :: perm2 = 1e-12
 
 
 real(8) :: frac6(yn,2), frac6_last(yn,2), temp6(yn,2), temp6_last(yn,2), temp6_mid(yn,2)
-integer :: f_index1 = xn-6, iter = 0, spinup = 4000
+integer :: f_index1 = xn-6, iter = 0, spinup = 0!50000
 
 
 real(8) :: temp6_a(yn), temp6_b(yn), temp6_c(yn), temp6_rhs(yn)
