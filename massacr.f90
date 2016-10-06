@@ -2690,11 +2690,17 @@ if (restart .ne. 1) then
 !
 				do ii=2,yn-1
 					if ((mask(f_index1-1,ii) .eq. 3.05)) then
-						temp6_mid(ii,1) = (4.0/3.0)*h(f_index1-1,ii) - (1.0/3.0)*h(f_index1-1-1,ii)
+						temp6(ii,1) = (4.0/3.0)*h(f_index1-1,ii) - (1.0/3.0)*h(f_index1-1-1,ii)
+					end if
+				end do
+				
+				do ii=2,yn-1
+					if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
+						temp6(ii,1) = temp6(ii-1,1) + (dy*lambdaMat(f_index1-1,ii)/(dx*cp*frac6(ii,1))) * (h(f_index1-1,ii) - h(f_index1-2,ii))
 					end if
 				end do
 
- 				temp6 = temp6_mid
+! 				temp6 = temp6_mid
 !
 ! 				do ii=2,yn-1
 ! 					if ((mask(f_index1-1,ii) .eq. 3.1)) then
@@ -2704,37 +2710,39 @@ if (restart .ne. 1) then
 ! 				end do
 !
 
-				if (mod(j,50) .eq. 0) then
-
-				do jj=1,10000000
-
-					temp6 = temp6_mid
-					do ii=2,yn-1
-
-						if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
-							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
-						end if
-! 						if (mask(f_index1-1,ii) .eq. 3.0) then
+! 				if (mod(j,50) .eq. 0) then
+!
+! 				do jj=1,10000000
+!
+! 					temp6 = temp6_mid
+! 					do ii=2,yn-1
+!
+! 						if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
 ! 							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
 ! 						end if
-! 						if (mask(f_index1-1,ii) .eq. 3.5) then
-! 							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
-! 						end if
-					end do
+! ! 						if (mask(f_index1-1,ii) .eq. 3.0) then
+! ! 							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
+! ! 						end if
+! ! 						if (mask(f_index1-1,ii) .eq. 3.5) then
+! ! 							temp6_mid(ii,1) = temp6(ii,1) - frac6(ii,1)*(dt/(rho_fluid*param_f_dx*10000000.0))*(temp6(ii,1) - temp6(ii-1,1))/dy
+! ! 						end if
+! 					end do
+!
+! 				end do
+! ! 				write(*,*) "mod 50"
+! ! 				write(*,*) temp6(:,1)
+! ! 				write(*,*) " "
+!
+! ! ! TESTING SOMETHING
+! ! do ii=2,yn-1
+! ! 	if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
+! ! 		temp6_mid(ii,1) = 328.0
+! ! 	end if
+! ! end do
+!
+! 				end if
 
-				end do
-! 				write(*,*) "mod 50"
-! 				write(*,*) temp6(:,1)
-! 				write(*,*) " "
 
-! ! TESTING SOMETHING
-! do ii=2,yn-1
-! 	if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
-! 		temp6_mid(ii,1) = 328.0
-! 	end if
-! end do
-
-				end if
 
 				! top of fracture is no heat flow out? wilcox condition?
 				do ii=yn/2,yn-1
@@ -2830,16 +2838,16 @@ if (restart .ne. 1) then
 			psi = psi_next(h, rhs0, psi, rho, phi, permeability, outerBand, permx, permy, j/mstep,frac6)
 			psi = psi_bc(psi)
 		
-			do jj=yn/2,yn-1
-				do i=1,xn
-					if ((maskP(i,jj) .eq. 50.0) .and. (i .lt. f_index1)) then
-						psi(i,jj+1) = maxval(frac6(:,1))
-					end if
-! 					if ((maskP(i,jj) .eq. 3.5)) then
+! 			do jj=yn/2,yn-1
+! 				do i=1,xn
+! 					if ((maskP(i,jj) .eq. 50.0) .and. (i .lt. f_index1)) then
 ! 						psi(i,jj+1) = maxval(frac6(:,1))
 ! 					end if
-				end do
-			end do
+! ! 					if ((maskP(i,jj) .eq. 3.5)) then
+! ! 						psi(i,jj+1) = maxval(frac6(:,1))
+! ! 					end if
+! 				end do
+! 			end do
 
 						
 		end if

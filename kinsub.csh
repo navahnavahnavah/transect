@@ -10,7 +10,7 @@
 # you want to run.
 #
 # set the name of the job
-#PBS -N h200_closed
+#PBS -N gt_5
 #
 # set the output and error files
 #PBS -o /data/navah/summer16/mOutG.txt
@@ -21,7 +21,7 @@
 
 
 #PBS -l nodes=1:ppn=1
-#####PBS -l nodes=compute-1-10:ppn=1
+####PBS -l nodes=compute-1-5:ppn=1
 
 ## nodes=compute-1-0:ppn=11+compute-1-1:ppn=11+compute-1-4:ppn=11+compute-0-0:ppn=11+compute-0-1:ppn=11+compute-0-2:ppn=11+compute-0-3:ppn=11+compute-0-4:ppn=11
 
@@ -99,7 +99,7 @@ set PARAM_F_POR = '1e-3'
 #set PARAM_PATH='/data/navah/jan16/june16/fractures_jdf/krhs_chrhs/chrhs'${PARAM_CH_RHS}'krhs'${PARAM_K_RHS}'/'
 #set PARAM_PATH='/data/navah/jan16/june16/fractures_jdf/crunch_noch1/w'${PARAM_W}'klhs'${PARAM_K_LHS}'/'
 
-set PARAM_PATH='/data/navah/summer16/output/10_01_h200_closed_porf/por'${PARAM_F_POR}'b'${PARAM_F_DX}'/'
+set PARAM_PATH='/data/navah/summer16/output/06_group_trial_5/por'${PARAM_F_POR}'b'${PARAM_F_DX}'/'
 #set PARAM_PATH='/data/navah/summer16/output/stagger2/'
 #set PARAM_PATH='/data/navah/summer16/output/test9/'
 

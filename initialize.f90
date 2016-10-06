@@ -63,7 +63,7 @@ real(8) :: perm2 = 1e-12
 
 
 real(8) :: frac6(yn,2), frac6_last(yn,2), temp6(yn,2), temp6_last(yn,2), temp6_mid(yn,2)
-integer :: f_index1 = xn-6, iter = 0, spinup = 0!50000
+integer :: f_index1 = xn-6, iter = 0, spinup = 100!50000
 
 
 real(8) :: temp6_a(yn), temp6_b(yn), temp6_c(yn), temp6_rhs(yn)
@@ -1544,7 +1544,7 @@ end if
 	do gg=1,yn-2
 	do g=1,xn
 		if ((any(maskP(g,:) .eq. 50.0)) .and. (y(gg) .ge. sed1(g)) .and. (y(gg) .le. sed(g)) .and. (x(g) .le. x_max-param_w_rhs+5000.0)) then
-			permeability(g:g,gg:gg) = 1e-16
+			permeability(g:g,gg:gg) = 1e-17
 			primary(g:g,gg:gg+1,5) = 0.0 ! NO BASALT IN SEDIMENT DUH
 			medium(g-1:g+1,gg:gg+1,5) = 0.0 ! NO REACTIONS IN SEDIMENT
 		end if
