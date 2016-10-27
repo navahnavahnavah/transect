@@ -10,7 +10,7 @@
 # you want to run.
 #
 # set the name of the job
-#PBS -N gt_5
+#PBS -N hs_h200
 #
 # set the output and error files
 #PBS -o /data/navah/summer16/mOutG.txt
@@ -21,7 +21,7 @@
 
 
 #PBS -l nodes=1:ppn=1
-####PBS -l nodes=compute-1-5:ppn=1
+###PBS -l nodes=compute-1-4:ppn=1
 
 ## nodes=compute-1-0:ppn=11+compute-1-1:ppn=11+compute-1-4:ppn=11+compute-0-0:ppn=11+compute-0-1:ppn=11+compute-0-2:ppn=11+compute-0-3:ppn=11+compute-0-4:ppn=11
 
@@ -77,7 +77,7 @@ set PARAM_CH_RHS = '600'
 set PARAM_F_K = '1e-5'
 #set PARAM_F_FREQ = '0.0005'
 set PARAM_F_FREQ = '20'
-set PARAM_F_POR = '1e-3'
+set PARAM_F_POR = '1e-3' 
  
 
 # set PARAM_PATH='/data/navah/scope_law/o'${PARAM_O}'s'${PARAM_SCOPE}'h'${PARAM_H}'orhs'${PARAM_O_RHS}'/'
@@ -99,7 +99,9 @@ set PARAM_F_POR = '1e-3'
 #set PARAM_PATH='/data/navah/jan16/june16/fractures_jdf/krhs_chrhs/chrhs'${PARAM_CH_RHS}'krhs'${PARAM_K_RHS}'/'
 #set PARAM_PATH='/data/navah/jan16/june16/fractures_jdf/crunch_noch1/w'${PARAM_W}'klhs'${PARAM_K_LHS}'/'
 
-set PARAM_PATH='/data/navah/summer16/output/06_group_trial_5/por'${PARAM_F_POR}'b'${PARAM_F_DX}'/'
+set PARAM_PATH='/data/navah/summer16/output/10_25_halfstep_h200/por'${PARAM_F_POR}'b'${PARAM_F_DX}'/'
+set PARAM_PATH_ALT=/data/navah/summer16/output/10_25_halfstep_h200/por${PARAM_F_POR}b${PARAM_F_DX}/
+
 #set PARAM_PATH='/data/navah/summer16/output/stagger2/'
 #set PARAM_PATH='/data/navah/summer16/output/test9/'
 
@@ -159,16 +161,16 @@ echo $PARAM_PATH
 
 # run the program
 
-# set SCRDIR=/state/partition1/navah/${PBS_JOBID}/
-# mkdir -p $SCRDIR
+set SCRDIR=/state/partition1/navah/${PBS_JOBID}/
+mkdir -p $SCRDIR
 
 
 #cd $SCRDIR
 cd ${WORKDIR}
 ##wait
-${LAUNCH} -n {$NCPU} -hostfile ${PBS_NODEFILE} --nooversubscribe ${WORKDIR}/${PROGNAME} ${PARAM_RESTART} ${PARAM_PATH} ${PARAM_PATH} ${PARAM_CRASHSTEP} ${PARAM_O} ${PARAM_W} ${PARAM_W_RHS} ${PARAM_H} ${PARAM_O_RHS} ${PARAM_TSW} ${PARAM_DIC} ${PARAM_SCOPE} ${PARAM_TRACE} ${PARAM_CH} ${PARAM_PAQ} ${PARAM_CH_RHS} ${PARAM_F_DX} ${PARAM_F_K} ${PARAM_F_FREQ} ${PARAM_F_POR}
+${LAUNCH} -n {$NCPU} -hostfile ${PBS_NODEFILE} --nooversubscribe ${WORKDIR}/${PROGNAME} ${PARAM_RESTART} ${SCRDIR} ${PARAM_PATH} ${PARAM_CRASHSTEP} ${PARAM_O} ${PARAM_W} ${PARAM_W_RHS} ${PARAM_H} ${PARAM_O_RHS} ${PARAM_TSW} ${PARAM_DIC} ${PARAM_SCOPE} ${PARAM_TRACE} ${PARAM_CH} ${PARAM_PAQ} ${PARAM_CH_RHS} ${PARAM_F_DX} ${PARAM_F_K} ${PARAM_F_FREQ} ${PARAM_F_POR}
 
-# wait
-# ssh $PBS_NODEFILE
-# cd $SCRDIR
-# mv * $PARAM_PATH_ALT
+wait
+ssh $PBS_NODEFILE
+cd $SCRDIR
+mv * $PARAM_PATH_ALT

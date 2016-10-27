@@ -783,7 +783,7 @@ sed = (/-77.9798996719, &
 & -169.045198012, -169.240635274, -169.436072537, -169.631509799, -169.826947061, -170.022384324, &
 & -170.217821586, -170.413258848, -170.608696111, -170.804133373/)
 
-
+!sed = sum(sed)/xn
 
 ! sed1 = (/-215.805483426, &
 ! & -217.371452523, -218.93742162, -220.503390717, -222.069359814, -223.635328911, -225.201298007, &
@@ -1182,6 +1182,8 @@ sed1 = (/-193.617538317, &
 & -348.884247832, -359.188221025, -369.492194218, -379.796167411, -390.100140604, -400.404113796, &
 & -404.236682923, -407.936532472, -411.63638202, -415.336231569, -419.036081117, -422.735930666, &
 & -426.435780215, -430.135629763, -433.835479312, -436.086602814/)
+
+!sed1 = sum(sed1)/xn
 
 sed1((param_w/dx)+1:) = sed1(:xn-(param_w/dx))
 sed1(1:param_w/dx) = sed1((param_w/dx)+1)
@@ -2104,39 +2106,53 @@ function psi_bc(psi_in)
 		end do
 	end do		
 	
+	
+! 	do p=2,xn
+! 		do pp=2,yn-1
+!
+! 			! top of sediment
+! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .lt. 20)) then
+! 				psi_bc(p,pp+1) = psi_bc(20,pp+1)
+! 			end if
+!
+!
+!
+! 		end do
+! 	end do
+	
 	! SUSTAINED
 
-	do p=1,xn
-		do pp=2,yn-1
-
-! 			! top of sediment
-! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn)) then
-! 				psi_bc(p,pp+1) = 0.0
-! 			end if
-
-! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-1)) then
-! 				psi_bc(p,pp+1) = 0.1e-5
-! 			end if
-
-! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-2)) then
-! 				psi_bc(p,pp+1) = 0.2e-5
-! 			end if
+! 	do p=1,xn
+! 		do pp=2,yn-1
 !
-! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-3)) then
-! 				psi_bc(p,pp+1) = 0.3e-5
-! 			end if
+! ! 			! top of sediment
+! ! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn)) then
+! ! 				psi_bc(p,pp+1) = 0.0
+! ! 			end if
 !
-! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .le. xn-4)) then
-! 				psi_bc(p,pp+1) = 0.4e-5
-! 			end if
-
-
-
-
-
-		end do
-	end do
-	
+! ! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-1)) then
+! ! 				psi_bc(p,pp+1) = 0.1e-5
+! ! 			end if
+!
+! ! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-2)) then
+! ! 				psi_bc(p,pp+1) = 0.2e-5
+! ! 			end if
+! !
+! ! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .eq. xn-3)) then
+! ! 				psi_bc(p,pp+1) = 0.3e-5
+! ! 			end if
+! !
+! ! 			if ((maskP(p,pp) .eq. 50.0) .and. (p .le. xn-4)) then
+! ! 				psi_bc(p,pp+1) = 0.4e-5
+! ! 			end if
+!
+!
+!
+!
+!
+! 		end do
+! 	end do
+!
 	psi_bc(f_index1,:) = 0.0
 	
 

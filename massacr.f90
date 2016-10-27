@@ -2838,16 +2838,16 @@ if (restart .ne. 1) then
 			psi = psi_next(h, rhs0, psi, rho, phi, permeability, outerBand, permx, permy, j/mstep,frac6)
 			psi = psi_bc(psi)
 		
-! 			do jj=yn/2,yn-1
-! 				do i=1,xn
-! 					if ((maskP(i,jj) .eq. 50.0) .and. (i .lt. f_index1)) then
+			do jj=yn/2,yn-1
+				do i=1,xn
+					if ((maskP(i,jj) .eq. 50.0) .and. (i .lt. f_index1)) then
+						psi(i,jj+1) = maxval(frac6(:,1))
+					end if
+! 					if ((maskP(i,jj) .eq. 3.5)) then
 ! 						psi(i,jj+1) = maxval(frac6(:,1))
 ! 					end if
-! ! 					if ((maskP(i,jj) .eq. 3.5)) then
-! ! 						psi(i,jj+1) = maxval(frac6(:,1))
-! ! 					end if
-! 				end do
-! 			end do
+				end do
+			end do
 
 						
 		end if
@@ -5117,6 +5117,10 @@ do ii=2,yn-1
 do i=2,xn-1
 	permx_left(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_fluid + perm_in(i-1,ii)*rho_fluid) / 2.0)
 	permx_right(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_in(i,ii) + perm_in(i+1,ii)*rho_fluid) / 2.0)
+	
+	if (maskP(i,ii) .eq. 5.0) then
+		permx_right(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_in(i,ii)))
+	end if
 
 	permy_bottom(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_fluid + perm_in(i,ii-1)*rho_fluid) / 2.0)
 	permy_top(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_fluid + perm_in(i,ii+1)*rho_fluid) / 2.0)
@@ -5390,6 +5394,10 @@ function make_band(perm_in,phi_in,permx,permy,rho_in)
 	do i=2,xn-1
 		permx_left(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_fluid + perm_in(i-1,ii)*rho_fluid) / 2.0)
 		permx_right(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_in(i,ii) + perm_in(i+1,ii)*rho_fluid) / 2.0)
+		
+		if (maskP(i,ii) .eq. 5.0) then
+			permx_right(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_in(i,ii)))
+		end if
 
 		permy_bottom(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_fluid + perm_in(i,ii-1)*rho_fluid) / 2.0)
 		permy_top(i,ii) = phi_in(i,ii) / ((grav*rho_fluid/viscosity)*(perm_in(i,ii)*rho_fluid + perm_in(i,ii+1)*rho_fluid) / 2.0)
