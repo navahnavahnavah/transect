@@ -42,7 +42,7 @@ real(8) :: inertTrace(5,inertn), inertTraceMat(5,inertn*tn/(mstep*ar))
 real(8) :: fives(2,yn), tens(2,yn), twentyfives(2,xn), fifties(2,xn)
 
 ! shell file parameters
-character(len=300) :: path, path2, path_final, crashstring, restartstring
+character(len=300) :: path, path2, path_final, crashstring, restartstring, iso_path
 character(len=300) :: param_o_string, param_w_string, param_w_rhs_string, param_h_string, param_o_rhs_string, param_tsw_string
 character(len=300) :: param_dic_string, param_scope_string, param_trace_string, param_ch_string, param_f_dx_string, param_f_k_string
 character(len=300) :: param_paq_string, param_ch_rhs_string, param_f_freq_string, param_f_por_string
@@ -104,6 +104,7 @@ call getarg(17,param_f_dx_string)
 call getarg(18,param_f_k_string)
 call getarg(19,param_f_freq_string)
 call getarg(20,param_f_por_string)
+call getarg(21,iso_path)
 
 read (crashstring, *) crashstep
 read (restartstring, *) restart

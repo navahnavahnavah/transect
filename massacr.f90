@@ -2696,7 +2696,7 @@ if (restart .ne. 1) then
 				
 				do ii=2,yn-1
 					if ((mask(f_index1-1,ii) .eq. 3.1) .or. (mask(f_index1-1,ii) .eq. 3.0) .or. (mask(f_index1-1,ii) .eq. 3.5)) then
-						temp6(ii,1) = temp6(ii-1,1) + (dy*lambdaMat(f_index1-1,ii)/(dx*cp*frac6(ii,1))) * (h(f_index1-1,ii) - h(f_index1-2,ii))
+						temp6(ii,1) = temp6(ii-1,1) + (dy*lambdaMat(f_index1-1,ii)/(dx*4179.0*frac6(ii,1))) * (h(f_index1-1,ii) - h(f_index1-2,ii))
 					end if
 				end do
 
@@ -3250,7 +3250,7 @@ end if
 
 
 
-
+if (restart .ne. 1) then
 
 
 
@@ -3366,10 +3366,6 @@ yep = write_matrix ( xn, yn/2,real(phi(:,(yn/2)+1:),kind=4), trim(path) // 'phi.
 !yep = write_matrix ( xn, yn,real(reactive,kind=4), trim(path) // 'reactive.txt' )
 !yep = write_matrix ( xn/cell, yn/cell,real(reactiveCoarse,kind=4), trim(path) // 'reactiveCoarse.txt' )
 
-if (restart .eq. 1) then
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,1),kind=4), trim(path) // 'iso_c14.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,2),kind=4), trim(path) // 'iso_control.txt' )
-end if
 
 ! yep = write_matrix ( 3, ison*tn/(cell*mstep*ar), real(isoTraceMat(1:3,:,1),kind=4), trim(path) // 'isopart_1.txt' )
 ! yep = write_matrix ( 3, inertn*tn/(cell*mstep*ar), real(inertTraceMat(1:3,:),kind=4), trim(path) // 'inert_trace.txt' )
@@ -3467,6 +3463,16 @@ end if ! end write if maxval cells on == 1
 
 	 	end if
 		! end mstep*ar loop
+		
+		
+end if ! end write only if restart ne 1
+
+
+if (restart .eq. 1) then
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,1),kind=4), trim(iso_path) // 'iso_c14.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,2),kind=4), trim(iso_path) // 'iso_control.txt' )
+end if
+
 		
 		
 end if 
@@ -4518,8 +4524,8 @@ hMid = h
 
 qx = dt/(dx)
 qy = dt/(dy)
-sx = (2.0*dt_in*lambdaMat(1,1))/(dx*dx*((phi_in(1,1)) + ((1.0-phi_in(1,1))))*cp)
-sy = (2.0*dt_in*lambdaMat(1,1))/(dy*dy*((phi_in(1,1)) + ((1.0-phi_in(1,1))))*cp)
+sx = (2.0*dt_in*lambdaMat(1,1))/(dx*dx*rho_fluid*cp)
+sy = (2.0*dt_in*lambdaMat(1,1))/(dy*dy*rho_fluid*cp)
 
 ! qxMat = 1.0*dt*4179.0*phi_in/(dx*(rho_in*(phi_in) + (2200.0*(1.0-phi_in)))*cp)
 ! qyMat = 1.0*dt*4179.0*phi_in/(dy*(rho_in*(phi_in) + (2200.0*(1.0-phi_in)))*cp)
@@ -4529,10 +4535,10 @@ sy = (2.0*dt_in*lambdaMat(1,1))/(dy*dy*((phi_in(1,1)) + ((1.0-phi_in(1,1))))*cp)
 ! syMat = 2.0*dt*(lambdaMat)/(dy*dy*((rho_in*phi_in) + (2200.0*(1.0-phi_in)))*cp)
 
 
-qxMat = dt_in*rho_in*4179.0/(dx*((phi_in*rho_in) + ((1.0-phi_in)*2200))*cp)
-qyMat = dt_in*rho_in*4179.0/(dy*((phi_in*rho_in) + ((1.0-phi_in)*2200))*cp)
-sxMat = (2.0*dt_in*(lambdaMat*(1.0-phi_in) + 0.6*phi_in))/(dx*dx*((phi_in*rho_in) + ((1.0-phi_in)*2200))*cp)
-syMat = (2.0*dt_in*(lambdaMat*(1.0-phi_in) + 0.6*phi_in))/(dy*dy*((phi_in*rho_in) + ((1.0-phi_in)*2200))*cp)
+qxMat = dt_in*4179.0/(dx*cp)
+qyMat = dt_in*4179.0/(dy*cp)
+sxMat = (2.0*dt_in*(lambdaMat*(1.0-phi_in) + 0.6*phi_in))/(dx*dx*rho_in*cp)
+syMat = (2.0*dt_in*(lambdaMat*(1.0-phi_in) + 0.6*phi_in))/(dy*dy*rho_in*cp)
 
 
 ! ! print stability conditions at each timestep
