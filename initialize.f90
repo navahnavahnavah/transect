@@ -146,6 +146,9 @@ param_f_freq = param_f_dx/param_f_freq
 read (param_f_por_string, *) param_f_por
 
 
+
+
+
 !permf = rho_fluid*grav*4.0*param_f_dx*param_f_dx/(12.0*viscosity)
 permf = param_f_dx*param_f_dx/3.0
 
@@ -156,6 +159,7 @@ dy = ( y_max - y_min ) / real ( yn - 1, kind = 8 )
 y = linspace ( yn, y_min, y_max )
 dt = ( t_max - t_min ) / real ( tn - 1, kind = 8 ) 
 t = linspace ( tn, t_min, t_max)
+
 
 
   

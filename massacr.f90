@@ -2937,7 +2937,7 @@ end if
 
 
 				
-	
+
 ! 	write(*,*) "about to start mstep loop"
 	
 	! things only done every mth timestep go here
@@ -2961,12 +2961,39 @@ end if
 ! 		write(*,*) dt*mstep/(cstep*dy*dy*cell*cell)
 
 !NOT RUNNING TRANSPORT RIGHT NOW, JUST CHEMISTRY
-		do i = 1,cstep
-			
-			iso(:,:,1) = solute_next(iso(:,:,1),u,v,1.0D+00)
-			iso(:,:,1) = iso(:,:,1)*exp(-(3.85e-12)*dt*mstep/cstep)
 
-			iso(:,:,2) = solute_next(iso(:,:,2),u,v,1.0D+00)
+
+
+!-- ISO
+u_1d = param_f_dx*param_f_dx*param_f_dx*param_f_por*grav*22.0/(viscosity*12.0*param_h)
+! cstep_int = dx*cstep/(maxval(u/phi(1,1))*mstep)
+! cstep_num = 6.28e10/(cstep_int*mstep)
+
+cstep_int = 6.28e11/tn
+cstep_num = 10.0*cstep_int*mstep*maxval(abs(v/phi(1,1)))/dy
+
+if (cstep_num .le. 1) then
+	cstep_num = 1
+end if
+
+write(*,*) "max(u/phi(1,1))"
+write(*,*) maxval(abs(u/phi(1,1)))
+write(*,*) "max(v/phi(1,1))"
+write(*,*) maxval(abs(v/phi(1,1)))
+write(*,*) "u_1d"
+write(*,*) u_1d
+write(*,*) "cstep_int"
+write(*,*) cstep_int
+write(*,*) "cstep_num"
+write(*,*) cstep_num
+
+
+		do i = 1,cstep_num
+			
+			iso(:,:,1) = solute_next(iso(:,:,1),u/phi(1,1),v/phi(1,1),1.0D+00)
+			iso(:,:,1) = iso(:,:,1)*exp(-(3.85e-12)*mstep*cstep_int/(cstep_num))
+
+			iso(:,:,2) = solute_next(iso(:,:,2),u/phi(1,1),v/phi(1,1),1.0D+00)
 			
 ! ! 			n=1 ! pH
 ! ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
@@ -5825,8 +5852,29 @@ sol(xn,:) = (4.0/3.0)*sol(xn-1,:) - (1.0/3.0)*sol(xn-2,:)
 sol0 = sol
 solute_next = sol
 
-qx = dt*mstep/(cstep*dx)
-qy = dt*mstep/(cstep*dy)
+! cstep_num = 6.28e10/(mstep)
+! cstep_int = dx*cstep_num/(maxval(uTransport)*mstep)
+
+cstep_int = 6.28e11/tn
+cstep_num = 10.0*cstep_int*mstep*maxval(abs(vTransport))/dy
+
+
+
+! cstep_int = 6.28e11/tn
+! cstep_num = cstep_int*mstep*maxval(u/phi(1,1))/dx
+
+if (cstep_num .le. 1) then
+	cstep_num = 1
+end if
+
+!
+! write(*,*) "cstep_int"
+! write(*,*) cstep_int
+! write(*,*) "cstep_num"
+! write(*,*) cstep_num
+
+qx = cstep_int*mstep/(cstep_num*dx)
+qy = cstep_int*mstep/(cstep_num*dy)
 
 ! uLong = reshape(uTransport(2:xn-1,1:yn), (/(xn-2)*(yn-0)/))
 ! !! transpose coarse needed!
@@ -5948,9 +5996,9 @@ do i = 2,xn-1
 						
 						! choosing sigma5
 						sigma5 = 0.0
-						if (sigma1*sigma3 .gt. 0.0) then
+						!if (sigma1*sigma3 .gt. 0.0) then
 							sigma5 = sign(1.0D+00,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
-						end if
+							!end if
 
 
 
@@ -5987,15 +6035,15 @@ do i = 2,xn-1
 						
 						! choosing sigma6
 						sigma6 = 0.0
-						if (sigma2*sigma4 .gt. 0.0) then
+						!if (sigma2*sigma4 .gt. 0.0) then
 							sigma6 = sign(1.0D+00,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
-						end if
+							!end if
 						
 ! 						write(*,*) "sigma5"
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (uTransport(i,j)*(dt*mstep/cstep)*0.5/dx) * (sigma5 - sigma6) * (dx - uTransport(i,j)*(dt*mstep/cstep))
+						correction = (uTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dx) * (sigma5 - sigma6) * (dx - uTransport(i,j)*(cstep_int*mstep/cstep_num))
 						solute_next(i,j) = solute_next(i,j) - correction
 
 					end if
@@ -6113,7 +6161,7 @@ do i = 2,xn-1
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (uTransport(i,j)*(dt*mstep/cstep)*0.5/dx) * (sigma6 - sigma5) * (dx - uTransport(i,j)*(dt*mstep/cstep))
+						correction = (uTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dx) * (sigma6 - sigma5) * (dx - uTransport(i,j)*(cstep_int*mstep/cstep_num))
 						solute_next(i,j) = solute_next(i,j) - correction
 					end if
 				end if
@@ -6284,7 +6332,7 @@ do i = 1,xn
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (vTransport(i,j)*(dt*mstep/cstep)*0.5/dy) * (sigma5 - sigma6) * (dy - vTransport(i,j)*(dt*mstep/cstep))
+						correction = (vTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dy) * (sigma5 - sigma6) * (dy - vTransport(i,j)*(cstep_int*mstep/cstep_num))
 						solute_next(i,j) = solute_next(i,j) - correction
 				end if
 				! end correction loop
@@ -6377,7 +6425,7 @@ do i = 1,xn
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (vTransport(i,j)*(dt*mstep/cstep)*0.5/dy) * (sigma6 - sigma5) * (dy - vTransport(i,j)*(dt*mstep/cstep))
+						correction = (vTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dy) * (sigma6 - sigma5) * (dy - vTransport(i,j)*(cstep_int*mstep/cstep_num))
 						solute_next(i,j) = solute_next(i,j) - correction
 
 					end if
