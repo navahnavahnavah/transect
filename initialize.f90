@@ -266,7 +266,7 @@ medium(:,:,2) = 0.0 ! s_sp
 medium(:,:,3) = .0266*10.0 !.1860 ! water_volume
 medium(:,:,4) = 1.0! reactive fraction now!
 medium(:,:,5) = 1.0 ! rxn toggle
-medium(:,:,5) = 0.0 ! ALL CELLS ON/OFF
+medium(:,:,5) = 1.0 ! ALL CELLS ON/OFF
 medium(:,:,6) = 0.0 ! x-coord
 medium(:,:,7) = 0.0 ! y-coord
 

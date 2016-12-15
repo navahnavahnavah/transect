@@ -2606,11 +2606,11 @@ if (mod(j,mstep/10) .eq. 0) then
 		close ( 88 )
 end if
 
-write(*,*) " "
-write(*,*) " "
-write(*,*) " "
-write(*,*) " "
-write(*,*) "j step:" , j
+! write(*,*) " "
+! write(*,*) " "
+! write(*,*) " "
+! write(*,*) " "
+! write(*,*) "j step:" , j
 
 if (restart .ne. 1) then
 	
@@ -2987,46 +2987,46 @@ write(*,*) cstep_int
 write(*,*) "cstep_num"
 write(*,*) cstep_num
 
-
-		do i = 1,cstep_num
-			
-			iso(:,:,1) = solute_next(iso(:,:,1),u/phi(1,1),v/phi(1,1),1.0D+00)
-			iso(:,:,1) = iso(:,:,1)*exp(-(3.85e-12)*mstep*cstep_int/(cstep_num))
-
-			iso(:,:,2) = solute_next(iso(:,:,2),u/phi(1,1),v/phi(1,1),1.0D+00)
-			
-! ! 			n=1 ! pH
+!
+! 		do i = 1,cstep_num
+!
+! 			iso(:,:,1) = solute_next(iso(:,:,1),u/phi(1,1),v/phi(1,1),1.0D+00)
+! 			iso(:,:,1) = iso(:,:,1)*exp(-(3.85e-12)*mstep*cstep_int/(cstep_num))
+!
+! 			iso(:,:,2) = solute_next(iso(:,:,2),u/phi(1,1),v/phi(1,1),1.0D+00)
+!
+! ! ! 			n=1 ! pH
+! ! ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !   			n=2 ! alk
+! !   			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			!n=3 ! water?
+! !  	 		!solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=4 ! c
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! ! 			n=5 ! ca
 ! ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!   			n=2 ! alk
-!   			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			!n=3 ! water?
-!  	 		!solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=4 ! c
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! 			n=5 ! ca
-! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! 			n=6 ! mg
-! 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=7 ! na
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=8 ! k
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=9 ! fe
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=10 ! s
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=11 ! si
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=12 ! cl
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-!  			n=13 ! al
-!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! ! 			do jj = 1,yn/cell
-! ! 			do ii = 1,xn/cell
-! ! 				solute(ii,jj,13) = max(solute(ii,jj,13),1.0e-8)
-! ! 			end do
-! ! 			end do
-		end do
+! ! 			n=6 ! mg
+! ! 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=7 ! na
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=8 ! k
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=9 ! fe
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=10 ! s
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=11 ! si
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=12 ! cl
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! !  			n=13 ! al
+! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! ! ! 			do jj = 1,yn/cell
+! ! ! 			do ii = 1,xn/cell
+! ! ! 				solute(ii,jj,13) = max(solute(ii,jj,13),1.0e-8)
+! ! ! 			end do
+! ! ! 			end do
+! 		end do
 
 
 		
@@ -3404,7 +3404,7 @@ yep = write_matrix ( xn, yn/2,real(phi(:,(yn/2)+1:),kind=4), trim(path) // 'phi.
 !if (maxval(medium(:,:,5)) .eq. 1.0) then
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SAVING TIME !!!!!!!!!!!!!!!!!!!!!!!!
 
-
+end if ! end write only if restart ne 1
 
 
 
@@ -3413,34 +3413,34 @@ if (maxval(medium(:,:,5)) .eq. 1.0) then
 
 
 ! solute concentrations
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,1),kind=4), trim(path) // 'z_sol_ph.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,3),kind=4), trim(path) // 'z_sol_w.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,2),kind=4), trim(path) // 'z_sol_alk.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,4),kind=4), trim(path) // 'z_sol_c.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,5),kind=4), trim(path) // 'z_sol_ca.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,6),kind=4), trim(path) // 'z_sol_mg.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,7),kind=4), trim(path) // 'z_sol_na.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,8),kind=4), trim(path) // 'z_sol_k.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,9),kind=4), trim(path) // 'z_sol_fe.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,10),kind=4), trim(path) // 'z_sol_s.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,11),kind=4), trim(path) // 'z_sol_si.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,12),kind=4), trim(path) // 'z_sol_cl.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,13),kind=4), trim(path) // 'z_sol_al.txt' )
-!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,14),kind=4), trim(path) // 'sol_hco3.txt' )
-!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(soluteMat(:,:,15),kind=4), trim(path) // 'sol_co3.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,1),kind=4), trim(path) // 'z_sol_ph.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,3),kind=4), trim(path) // 'z_sol_w.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,2),kind=4), trim(path) // 'z_sol_alk.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,4),kind=4), trim(path) // 'z_sol_c.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,5),kind=4), trim(path) // 'z_sol_ca.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,6),kind=4), trim(path) // 'z_sol_mg.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,7),kind=4), trim(path) // 'z_sol_na.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,8),kind=4), trim(path) // 'z_sol_k.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,9),kind=4), trim(path) // 'z_sol_fe.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,10),kind=4), trim(path) // 'z_sol_s.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,11),kind=4), trim(path) // 'z_sol_si.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,12),kind=4), trim(path) // 'z_sol_cl.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,13),kind=4), trim(path) // 'z_sol_al.txt' )
+!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,14),kind=4), trim(path) // 'sol_hco3.txt' )
+!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,15),kind=4), trim(path) // 'sol_co3.txt' )
 
 ! primary minerals
-! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(primaryMat(:,:,1),kind=4), trim(path) // 'pri_feldspar.txt' )
-! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(primaryMat(:,:,2),kind=4), trim(path) // 'pri_augite.txt' )
-! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(primaryMat(:,:,3),kind=4), trim(path) // 'pri_pigeonite.txt' )
-! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(primaryMat(:,:,4),kind=4), trim(path) // 'pri_magnetite.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(primaryMat(:,:,5),kind=4), trim(path) // 'z_pri_glass.txt' )
+! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(primaryMat(:,(yn/2)+1:,1),kind=4), trim(path) // 'pri_feldspar.txt' )
+! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(primaryMat(:,(yn/2)+1:,2),kind=4), trim(path) // 'pri_augite.txt' )
+! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(primaryMat(:,(yn/2)+1:,3),kind=4), trim(path) // 'pri_pigeonite.txt' )
+! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(primaryMat(:,(yn/2)+1:,4),kind=4), trim(path) // 'pri_magnetite.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(primaryMat(:,(yn/2)+1:,5),kind=4), trim(path) // 'z_pri_glass.txt' )
 
 ! medium properties
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(mediumMat(:,:,1),kind=4), trim(path) // 'z_med_phi.txt' )
-!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(mediumMat(:,:,2),kind=4), trim(path) // 'med_s_sp.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(mediumMat(:,:,3),kind=4), trim(path) // 'z_med_v_water.txt' )
-!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/cell, real(mediumMat(:,:,4),kind=4), trim(path) // 'med_reactive.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(mediumMat(:,(yn/2)+1:,1),kind=4), trim(path) // 'z_med_phi.txt' )
+!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(mediumMat(:,(yn/2)+1:,2),kind=4), trim(path) // 'med_s_sp.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(mediumMat(:,(yn/2)+1:,3),kind=4), trim(path) // 'z_med_v_water.txt' )
+!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(mediumMat(:,(yn/2)+1:,4),kind=4), trim(path) // 'med_reactive.txt' )
 
 
 
@@ -3458,7 +3458,7 @@ do i = 1,g_sec/2
         else
 			write(s_i,'(i2)') i
         end if
-		yep = write_matrix(xn*tn/(cell*mstep*ar),yn/cell,real(secondaryMat(:,:,i),kind=4),trim(path)//'z_sec'//trim(s_i)//'.txt')
+		yep = write_matrix(xn*tn/(cell*mstep*ar),yn/2,real(secondaryMat(:,(yn/2)+1:,i),kind=4),trim(path)//'z_sec'//trim(s_i)//'.txt')
 end do
 
 
@@ -3492,7 +3492,7 @@ end if ! end write if maxval cells on == 1
 		! end mstep*ar loop
 		
 		
-end if ! end write only if restart ne 1
+
 
 
 if (restart .eq. 1) then
@@ -3725,8 +3725,8 @@ write(s_reactive,'(F25.10)') medium3(4)
 ! INITIAL AQUEOUS PHASE CONSITUENTS
 ! ----------------------------------%%
 
-!kinetics = " precipitate_only"
-kinetics = " "
+kinetics = " precipitate_only"
+!kinetics = " "
 write(s_pressure,'(F25.10)') 250.0 - (medium3(7)/5.0)
 
 write(si_hematite,'(F25.10)') 1.0!-(solute3(1)*2.5) + 30.0
@@ -3845,7 +3845,7 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 ! &"      10 rate0 =0.01*" // trim(s_glass) //"*(7.7e-11)*exp(-25.0/(.008314*TK))" //NEW_LINE('')// &
 
 ! SAVE 04/27/16
-&"    10 rate0=M*46.5*(1.53e-5)*0.1*0.0001*(1e4)*(2.51189e-6)*exp(-25.5/(.008314*TK))" // &
+&"    10 rate0=M*46.5*(1.53e-5)*0.1*0.001*(1e4)*(2.51189e-6)*exp(-25.5/(.008314*TK))" // &
 &"*(((ACT('H+')^3)/(ACT('Al+3')))^.333)" //NEW_LINE('')// &
 ! &"    10 rate0=M*46.5*(1.53e-5)*0.01*1.0*(1.0e4)*(2.51189e-6)*exp(-25.5/(.008314*TK))" // &
 ! &"*(((ACT('H+')^3)/(ACT('Al+3')))^.333)" //NEW_LINE('')// &
@@ -3946,37 +3946,37 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 
 &"R(sum)" //NEW_LINE('')// &
 &"-start" //NEW_LINE('')// &
-&"10 sum = (" //&
-&"(EQUI('stilbite')*480.19/2.15) + (EQUI('aragonite')*100.19/2.93)" // &
-&"+ (EQUI('kaolinite')*258.16/2.63) + (EQUI('albite')*263.02/2.62)" // &
-&"+ (EQUI('Saponite-Mg')*480.19/2.3) + (EQUI('celadonite')*429.02/3.0)" // &
-&"+ (EQUI('Clinoptilolite-Ca')*2742.13/2.15) + (EQUI('pyrite')*119.98/5.02)" // &
-&"+ (EQUI('montmor-na')*549.07/2.01) + (EQUI('goethite')*88.85/4.27)" // &
-&"+ (EQUI('dolomite')*180.4/2.84) + (EQUI('Smectite-high-Fe-Mg')*540.46/2.01)" // &
-&"+ (EQUI('saponite-k')*480.19/2.3) + (EQUI('anhydrite')*136.14/2.97)" // &
-&"+ (EQUI('siderite')*115.86/3.96) + (EQUI('calcite')*100.19/2.71)" // &
-&"+ (EQUI('quartz')*60.08/2.65) + (EQUI('k-feldspar')*278.33/2.56)" // &
-&"+ (EQUI('saponite-na')*480.19/2.3) + (EQUI('nontronite-na')*495.9/2.3)" // &
-&"+ (EQUI('nontronite-mg')*495.9/2.3) + (EQUI('nontronite-k')*495.9/2.3)" // &
-&"+ (EQUI('nontronite-h')*495.9/2.3) + (EQUI('nontronite-ca')*495.9/2.3)" // &
-&"+ (EQUI('muscovite')*398.71/2.81) + (EQUI('mesolite')*1164.9/2.29)" // &
-&"+ (EQUI('hematite')*159.69/5.3) + (EQUI('montmor-ca')*549.07/2.01)" // &
-&"+ (EQUI('vermiculite-ca')*504.19/2.5) + (EQUI('analcime')*220.15/2.27)" // &
-&"+ (EQUI('phillipsite')*704.93/2.2) + (EQUI('diopside')*216.55/3.3)" // &
-&"+ (EQUI('epidote')*519.3/3.41) + (EQUI('gismondine')*718.55/2.26)" // &
-&"+ (EQUI('hedenbergite')*248.08/3.56) + (EQUI('chalcedony')*60.08/2.65)" // &
-&"+ (EQUI('vermiculite-mg')*504.19/2.5) + (EQUI('ferrihydrite')*169.7/3.8)" // &
-&"+ (EQUI('natrolite')*380.22/2.23) + (EQUI('talc')*379.27/2.75)" // &
-&"+ (EQUI('smectite-low-fe-mg')*540.46/2.01) + (EQUI('prehnite')*395.38/2.87)" // &
-&"+ (EQUI('chlorite')*67.4/2.468) + (EQUI('scolecite')*392.34/2.27)" // &
-&"+ (EQUI('chamosite-7a')*664.18/3.0) + (EQUI('clinochlore-14a')*595.22/3.0)" // &
-&"+ (EQUI('clinochlore-7a')*595.22/3.0) + (EQUI('saponite-ca')*480.19/2.3)" // &
-&"+ (EQUI('vermiculite-na')*504.19/2.5) + (EQUI('pyrrhotite')*85.12/4.62)" // &
-&"+ (EQUI('magnetite')*231.53/5.15) + (EQUI('lepidocrocite')*88.85/4.08)" // &
-&"+ (EQUI('daphnite-7a')*664.18/3.2) + (EQUI('daphnite-14a')*664.18/3.2)" // &
-&"+ (EQUI('vermiculite-k')*504.19/2.5) + (EQUI('montmor-k')*549.07/2.01)" // &
-&"+ (EQUI('montmor-mg')*549.07/2.01) + (KIN('Bglass')*96.8/2.92) )" // &
-!&"10 sum = 5.0" //&
+! &"10 sum = (" //&
+! &"(EQUI('stilbite')*480.19/2.15) + (EQUI('aragonite')*100.19/2.93)" // &
+! &"+ (EQUI('kaolinite')*258.16/2.63) + (EQUI('albite')*263.02/2.62)" // &
+! &"+ (EQUI('Saponite-Mg')*480.19/2.3) + (EQUI('celadonite')*429.02/3.0)" // &
+! &"+ (EQUI('Clinoptilolite-Ca')*2742.13/2.15) + (EQUI('pyrite')*119.98/5.02)" // &
+! &"+ (EQUI('montmor-na')*549.07/2.01) + (EQUI('goethite')*88.85/4.27)" // &
+! &"+ (EQUI('dolomite')*180.4/2.84) + (EQUI('Smectite-high-Fe-Mg')*540.46/2.01)" // &
+! &"+ (EQUI('saponite-k')*480.19/2.3) + (EQUI('anhydrite')*136.14/2.97)" // &
+! &"+ (EQUI('siderite')*115.86/3.96) + (EQUI('calcite')*100.19/2.71)" // &
+! &"+ (EQUI('quartz')*60.08/2.65) + (EQUI('k-feldspar')*278.33/2.56)" // &
+! &"+ (EQUI('saponite-na')*480.19/2.3) + (EQUI('nontronite-na')*495.9/2.3)" // &
+! &"+ (EQUI('nontronite-mg')*495.9/2.3) + (EQUI('nontronite-k')*495.9/2.3)" // &
+! &"+ (EQUI('nontronite-h')*495.9/2.3) + (EQUI('nontronite-ca')*495.9/2.3)" // &
+! &"+ (EQUI('muscovite')*398.71/2.81) + (EQUI('mesolite')*1164.9/2.29)" // &
+! &"+ (EQUI('hematite')*159.69/5.3) + (EQUI('montmor-ca')*549.07/2.01)" // &
+! &"+ (EQUI('vermiculite-ca')*504.19/2.5) + (EQUI('analcime')*220.15/2.27)" // &
+! &"+ (EQUI('phillipsite')*704.93/2.2) + (EQUI('diopside')*216.55/3.3)" // &
+! &"+ (EQUI('epidote')*519.3/3.41) + (EQUI('gismondine')*718.55/2.26)" // &
+! &"+ (EQUI('hedenbergite')*248.08/3.56) + (EQUI('chalcedony')*60.08/2.65)" // &
+! &"+ (EQUI('vermiculite-mg')*504.19/2.5) + (EQUI('ferrihydrite')*169.7/3.8)" // &
+! &"+ (EQUI('natrolite')*380.22/2.23) + (EQUI('talc')*379.27/2.75)" // &
+! &"+ (EQUI('smectite-low-fe-mg')*540.46/2.01) + (EQUI('prehnite')*395.38/2.87)" // &
+! &"+ (EQUI('chlorite')*67.4/2.468) + (EQUI('scolecite')*392.34/2.27)" // &
+! &"+ (EQUI('chamosite-7a')*664.18/3.0) + (EQUI('clinochlore-14a')*595.22/3.0)" // &
+! &"+ (EQUI('clinochlore-7a')*595.22/3.0) + (EQUI('saponite-ca')*480.19/2.3)" // &
+! &"+ (EQUI('vermiculite-na')*504.19/2.5) + (EQUI('pyrrhotite')*85.12/4.62)" // &
+! &"+ (EQUI('magnetite')*231.53/5.15) + (EQUI('lepidocrocite')*88.85/4.08)" // &
+! &"+ (EQUI('daphnite-7a')*664.18/3.2) + (EQUI('daphnite-14a')*664.18/3.2)" // &
+! &"+ (EQUI('vermiculite-k')*504.19/2.5) + (EQUI('montmor-k')*549.07/2.01)" // &
+! &"+ (EQUI('montmor-mg')*549.07/2.01) + (KIN('Bglass')*96.8/2.92) )" // &
+&"10 sum = 5.0" //&
 &"" //NEW_LINE('')// &
 &"100 SAVE sum" //NEW_LINE('')// &
 &"-end" //NEW_LINE('')// &
