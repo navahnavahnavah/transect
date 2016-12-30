@@ -2988,45 +2988,46 @@ write(*,*) "cstep_num"
 write(*,*) cstep_num
 
 !
-! 		do i = 1,cstep_num
-!
+		!do i = 1,cstep_num
+		do i = 1,cstep
+
 ! 			iso(:,:,1) = solute_next(iso(:,:,1),u/phi(1,1),v/phi(1,1),1.0D+00)
 ! 			iso(:,:,1) = iso(:,:,1)*exp(-(3.85e-12)*mstep*cstep_int/(cstep_num))
 !
 ! 			iso(:,:,2) = solute_next(iso(:,:,2),u/phi(1,1),v/phi(1,1),1.0D+00)
-!
-! ! ! 			n=1 ! pH
-! ! ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !   			n=2 ! alk
-! !   			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			!n=3 ! water?
-! !  	 		!solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=4 ! c
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! ! 			n=5 ! ca
-! ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! ! 			n=6 ! mg
-! ! 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=7 ! na
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=8 ! k
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=9 ! fe
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=10 ! s
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=11 ! si
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=12 ! cl
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! !  			n=13 ! al
-! !  	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
-! ! ! 			do jj = 1,yn/cell
-! ! ! 			do ii = 1,xn/cell
-! ! ! 				solute(ii,jj,13) = max(solute(ii,jj,13),1.0e-8)
-! ! ! 			end do
-! ! ! 			end do
-! 		end do
+
+! 			n=1 ! pH
+! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+  			n=2 ! alk
+  			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			!n=3 ! water?
+ 	 		!solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=4 ! c
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+			n=5 ! ca
+			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+			n=6 ! mg
+	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=7 ! na
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=8 ! k
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=9 ! fe
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=10 ! s
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=11 ! si
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=12 ! cl
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 			n=13 ! al
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+! 			do jj = 1,yn/cell
+! 			do ii = 1,xn/cell
+! 				solute(ii,jj,13) = max(solute(ii,jj,13),1.0e-8)
+! 			end do
+! 			end do
+		end do
 
 
 		
@@ -3758,7 +3759,7 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 
 
 &"EQUILIBRIUM_PHASES 1" //NEW_LINE('')// &
-!&"    Kaolinite 0.0 " // trim(s_kaolinite) // kinetics //NEW_LINE('')// &
+&"    Kaolinite 0.0 " // trim(s_kaolinite) // kinetics //NEW_LINE('')// &
 &"    Goethite 0.0 " // trim(s_goethite) // kinetics //NEW_LINE('')// &
 &"    Celadonite 0.0 " // trim(s_celadonite) // kinetics //NEW_LINE('')// &
 &"    Albite 0.0 " // trim(s_albite) // kinetics //NEW_LINE('')// &
@@ -3769,7 +3770,7 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 &"    Montmor-Ca 0.0 " // trim(s_mont_ca) // kinetics //NEW_LINE('')// &
 &"    Saponite-Mg 0.0 " // trim(s_saponite) // kinetics //NEW_LINE('')// &
 &"    Stilbite 0.0 " // trim(s_stilbite) // kinetics //NEW_LINE('')// &
-!&"    Clinoptilolite-Ca 0.0 " // trim(s_clinoptilolite) // kinetics //NEW_LINE('')// & ! zeolite
+&"    Clinoptilolite-Ca 0.0 " // trim(s_clinoptilolite) // kinetics //NEW_LINE('')// & ! zeolite
 &"    Pyrite 0.0 " // trim(s_pyrite) // kinetics //NEW_LINE('')// &
 &"    Quartz 0.0 " // trim(s_quartz) // kinetics //NEW_LINE('')// &
 &"    K-Feldspar 0.0 " // trim(s_kspar) // kinetics //NEW_LINE('')// &
@@ -3781,46 +3782,46 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
  &"    Nontronite-K 0.0 " // trim(s_nont_k) // kinetics //NEW_LINE('')// &
  &"    Nontronite-H 0.0 " // trim(s_nont_h) // kinetics //NEW_LINE('')// &
  &"    Nontronite-Ca 0.0 " // trim(s_nont_ca) // kinetics //NEW_LINE('')// &
-!&"    Muscovite 0.0 " // trim(s_muscovite) // kinetics //NEW_LINE('')// &
-! &"    Mesolite 0.0 " // trim(s_mesolite) // kinetics //NEW_LINE('')// & !!!!!!!!
-! &"    Anhydrite 0.0 " // trim(s_anhydrite) // kinetics //NEW_LINE('')// & ! formerly magnesite
+&"    Muscovite 0.0 " // trim(s_muscovite) // kinetics //NEW_LINE('')// &
+ &"    Mesolite 0.0 " // trim(s_mesolite) // kinetics //NEW_LINE('')// & !!!!!!!!
+ &"    Anhydrite 0.0 " // trim(s_anhydrite) // kinetics //NEW_LINE('')// & ! formerly magnesite
  &"    Smectite-high-Fe-Mg 0.0 " // trim(s_smectite) // kinetics //NEW_LINE('')// &
  &"    Saponite-K 0.0 " // trim(s_saponite_k) // kinetics //NEW_LINE('')// &
-!  &"    Vermiculite-Na 0.0 " // trim(s_verm_na) // kinetics //NEW_LINE('')// &
-!  &"    Hematite 0.0 " // trim(s_hematite) // kinetics //NEW_LINE('')// &
+  &"    Vermiculite-Na 0.0 " // trim(s_verm_na) // kinetics //NEW_LINE('')// &
+  &"    Hematite 0.0 " // trim(s_hematite) // kinetics //NEW_LINE('')// &
 ! &"    Hematite " // trim(si_hematite) // trim(s_hematite) // kinetics //NEW_LINE('')// &
 
 !! MINERALS ADDED 10/18/2014
-!  &"    Vermiculite-Ca 0.0 " // trim(s_verm_ca) // kinetics //NEW_LINE('')// &
-! &"    Analcime 0.0 " // trim(s_analcime) // kinetics //NEW_LINE('')// &
+  &"    Vermiculite-Ca 0.0 " // trim(s_verm_ca) // kinetics //NEW_LINE('')// &
+ &"    Analcime 0.0 " // trim(s_analcime) // kinetics //NEW_LINE('')// &
  &"    Phillipsite 0.0 " // trim(s_phillipsite) // kinetics //NEW_LINE('')// &
-!   &"    Diopside 0.0 " // trim(s_diopside) // kinetics //NEW_LINE('')// & ! pyroxene
-!   &"    Epidote  0.0 " // trim(s_epidote) // kinetics //NEW_LINE('')// &
-!  &"    Gismondine 0.0 " // trim(s_gismondine) // kinetics //NEW_LINE('')// & ! zeolite
-!  &"    Hedenbergite 0.0 " // trim(s_hedenbergite) // kinetics //NEW_LINE('')// & ! pyroxene
-!  &"    Chalcedony 0.0 " // trim(s_chalcedony) // kinetics //NEW_LINE('')// &
-!  &"    Vermiculite-Mg 0.0 " // trim(s_verm_mg) // kinetics //NEW_LINE('')// &
+   &"    Diopside 0.0 " // trim(s_diopside) // kinetics //NEW_LINE('')// & ! pyroxene
+   &"    Epidote  0.0 " // trim(s_epidote) // kinetics //NEW_LINE('')// &
+  &"    Gismondine 0.0 " // trim(s_gismondine) // kinetics //NEW_LINE('')// & ! zeolite
+  &"    Hedenbergite 0.0 " // trim(s_hedenbergite) // kinetics //NEW_LINE('')// & ! pyroxene
+  &"    Chalcedony 0.0 " // trim(s_chalcedony) // kinetics //NEW_LINE('')// &
+  &"    Vermiculite-Mg 0.0 " // trim(s_verm_mg) // kinetics //NEW_LINE('')// &
  &"    Ferrihydrite 0.0 " // trim(s_ferrihydrite) // kinetics //NEW_LINE('')// &
-!  &"    Natrolite 0.0 " // trim(s_natrolite) // kinetics //NEW_LINE('')// & ! zeolite
-!&"    Talc 0.0 " // trim(s_talc) // kinetics //NEW_LINE('')// &
+  &"    Natrolite 0.0 " // trim(s_natrolite) // kinetics //NEW_LINE('')// & ! zeolite
+&"    Talc 0.0 " // trim(s_talc) // kinetics //NEW_LINE('')// &
  &"    Smectite-low-Fe-Mg 0.0 " // trim(s_smectite_low) // kinetics //NEW_LINE('')// &
-! &"    Prehnite 0.0 " // trim(s_prehnite) // kinetics //NEW_LINE('')// &
-!  &"    Chlorite(14A) 0.0 " // trim(s_chlorite) // kinetics //NEW_LINE('')// &
-!  &"    Scolecite 0.0 " // trim(s_scolecite) // kinetics //NEW_LINE('')// &
-!  &"    Chamosite-7A 0.0 " // trim(s_chamosite7a) // kinetics //NEW_LINE('')// &
-!  &"    Clinochlore-14A 0.0 " // trim(s_clinochlore14a) // kinetics //NEW_LINE('')// &
-!  &"    Clinochlore-7A 0.0 " // trim(s_clinochlore7a) // kinetics //NEW_LINE('')// &
+ &"    Prehnite 0.0 " // trim(s_prehnite) // kinetics //NEW_LINE('')// &
+  &"    Chlorite(14A) 0.0 " // trim(s_chlorite) // kinetics //NEW_LINE('')// &
+  &"    Scolecite 0.0 " // trim(s_scolecite) // kinetics //NEW_LINE('')// &
+  &"    Chamosite-7A 0.0 " // trim(s_chamosite7a) // kinetics //NEW_LINE('')// &
+  &"    Clinochlore-14A 0.0 " // trim(s_clinochlore14a) // kinetics //NEW_LINE('')// &
+  &"    Clinochlore-7A 0.0 " // trim(s_clinochlore7a) // kinetics //NEW_LINE('')// &
  !! NEXT ROUND
 
  &"   Saponite-Ca 0.0 " // trim(s_saponite_ca) // kinetics //NEW_LINE('')// &
  &"   Pyrrhotite 0.0 " // trim(s_pyrrhotite) // kinetics //NEW_LINE('')// &
  &"   Magnetite 0.0 " // trim(s_magnetite) // kinetics //NEW_LINE('')// &
-!  &"   Daphnite-7a 0.0 " // trim(s_daphnite_7a) // kinetics //NEW_LINE('')// &
-!  &"   Daphnite-14a 0.0 " // trim(s_daphnite_14a) // kinetics //NEW_LINE('')// &
-! &"   Vermiculite-K 0.0 " // trim(s_verm_k) // kinetics //NEW_LINE('')// &
+  &"   Daphnite-7a 0.0 " // trim(s_daphnite_7a) // kinetics //NEW_LINE('')// &
+  &"   Daphnite-14a 0.0 " // trim(s_daphnite_14a) // kinetics //NEW_LINE('')// &
+ &"   Vermiculite-K 0.0 " // trim(s_verm_k) // kinetics //NEW_LINE('')// &
  &"   Aragonite 0.0 " // trim(s_aragonite) // kinetics //NEW_LINE('')// &
 ! &" -force_equality"  //NEW_LINE('')// &
-! &"   Lepidocrocite 0.0 " // trim(s_lepidocrocite) // kinetics //NEW_LINE('')// &
+ &"   Lepidocrocite 0.0 " // trim(s_lepidocrocite) // kinetics //NEW_LINE('')// &
 
 
 
@@ -5852,20 +5853,20 @@ sol(xn,:) = (4.0/3.0)*sol(xn-1,:) - (1.0/3.0)*sol(xn-2,:)
 sol0 = sol
 solute_next = sol
 
-! cstep_num = 6.28e10/(mstep)
-! cstep_int = dx*cstep_num/(maxval(uTransport)*mstep)
-
-cstep_int = 6.28e11/tn
-cstep_num = 10.0*cstep_int*mstep*maxval(abs(vTransport))/dy
-
-
-
+! ! cstep_num = 6.28e10/(mstep)
+! ! cstep_int = dx*cstep_num/(maxval(uTransport)*mstep)
+!
 ! cstep_int = 6.28e11/tn
-! cstep_num = cstep_int*mstep*maxval(u/phi(1,1))/dx
-
-if (cstep_num .le. 1) then
-	cstep_num = 1
-end if
+! cstep_num = 10.0*cstep_int*mstep*maxval(abs(vTransport))/dy
+!
+!
+!
+! ! cstep_int = 6.28e11/tn
+! ! cstep_num = cstep_int*mstep*maxval(u/phi(1,1))/dx
+!
+! if (cstep_num .le. 1) then
+! 	cstep_num = 1
+! end if
 
 !
 ! write(*,*) "cstep_int"
@@ -5873,8 +5874,11 @@ end if
 ! write(*,*) "cstep_num"
 ! write(*,*) cstep_num
 
-qx = cstep_int*mstep/(cstep_num*dx)
-qy = cstep_int*mstep/(cstep_num*dy)
+! qx = cstep_int*mstep/(cstep_num*dx)
+! qy = cstep_int*mstep/(cstep_num*dy)
+
+qx = dt*mstep/(dx*ar)
+dy = dy*mstep/(dy*ar)
 
 ! uLong = reshape(uTransport(2:xn-1,1:yn), (/(xn-2)*(yn-0)/))
 ! !! transpose coarse needed!
@@ -6043,7 +6047,7 @@ do i = 2,xn-1
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (uTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dx) * (sigma5 - sigma6) * (dx - uTransport(i,j)*(cstep_int*mstep/cstep_num))
+						correction = (uTransport(i,j)*(mstep/ar)*0.5/dx) * (sigma5 - sigma6) * (dx - uTransport(i,j)*(mstep/ar))
 						solute_next(i,j) = solute_next(i,j) - correction
 
 					end if
@@ -6161,7 +6165,7 @@ do i = 2,xn-1
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (uTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dx) * (sigma6 - sigma5) * (dx - uTransport(i,j)*(cstep_int*mstep/cstep_num))
+						correction = (uTransport(i,j)*(mstep/ar)*0.5/dx) * (sigma6 - sigma5) * (dx - uTransport(i,j)*(mstep/ar))
 						solute_next(i,j) = solute_next(i,j) - correction
 					end if
 				end if
@@ -6332,7 +6336,7 @@ do i = 1,xn
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (vTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dy) * (sigma5 - sigma6) * (dy - vTransport(i,j)*(cstep_int*mstep/cstep_num))
+						correction = (vTransport(i,j)*(mstep/ar)*0.5/dy) * (sigma5 - sigma6) * (dy - vTransport(i,j)*(mstep/ar))
 						solute_next(i,j) = solute_next(i,j) - correction
 				end if
 				! end correction loop
@@ -6425,7 +6429,7 @@ do i = 1,xn
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (vTransport(i,j)*(cstep_int*mstep/cstep_num)*0.5/dy) * (sigma6 - sigma5) * (dy - vTransport(i,j)*(cstep_int*mstep/cstep_num))
+						correction = (vTransport(i,j)*(mstep/ar)*0.5/dy) * (sigma6 - sigma5) * (dy - vTransport(i,j)*(mstep/ar))
 						solute_next(i,j) = solute_next(i,j) - correction
 
 					end if

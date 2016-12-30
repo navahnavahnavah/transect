@@ -34,7 +34,7 @@ save
  
 ! JDF PARAMS WITH FRACTURE AUGUST 9
 integer, parameter :: testInt = 31, xn =581, yn = 68, altnum = 190,  cell = 1 !50000
-integer, parameter ::  g_pri = 5, g_sec = 114, g_sol = 15, g_med = 7, g_iso = 2, cstep = 1, ar = 1 ! cstep = 1000
+integer, parameter ::  g_pri = 5, g_sec = 114, g_sol = 15, g_med = 7, g_iso = 2, cstep = 1000, ar = 1 ! cstep = 1000
 integer, parameter :: tn = 30000, mstep = 3000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 integer :: active_cells
 integer, parameter :: particle_sat = 1, inert_sat = 10
