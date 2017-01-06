@@ -2965,27 +2965,19 @@ end if
 
 
 !-- ISO
-u_1d = param_f_dx*param_f_dx*param_f_dx*param_f_por*grav*22.0/(viscosity*12.0*param_h)
-! cstep_int = dx*cstep/(maxval(u/phi(1,1))*mstep)
-! cstep_num = 6.28e10/(cstep_int*mstep)
+! u_1d = param_f_dx*param_f_dx*param_f_dx*param_f_por*grav*22.0/(viscosity*12.0*param_h)
+! ! cstep_int = dx*cstep/(maxval(u/phi(1,1))*mstep)
+! ! cstep_num = 6.28e10/(cstep_int*mstep)
+!
+! cstep_int = 6.28e11/tn
+! cstep_num = 10.0*cstep_int*mstep*maxval(abs(v/phi(1,1)))/dy
+!
+! if (cstep_num .le. 1) then
+! 	cstep_num = 1
+! end if
 
-cstep_int = 6.28e11/tn
-cstep_num = 10.0*cstep_int*mstep*maxval(abs(v/phi(1,1)))/dy
 
-if (cstep_num .le. 1) then
-	cstep_num = 1
-end if
-
-write(*,*) "max(u/phi(1,1))"
-write(*,*) maxval(abs(u/phi(1,1)))
-write(*,*) "max(v/phi(1,1))"
-write(*,*) maxval(abs(v/phi(1,1)))
-write(*,*) "u_1d"
-write(*,*) u_1d
-write(*,*) "cstep_int"
-write(*,*) cstep_int
-write(*,*) "cstep_num"
-write(*,*) cstep_num
+		write(*,*) "starting cstep advection"
 
 !
 		!do i = 1,cstep_num
@@ -2999,36 +2991,38 @@ write(*,*) cstep_num
 ! 			n=1 ! pH
 ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
   			n=2 ! alk
-  			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+  			solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			!n=3 ! water?
  	 		!solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
  			n=4 ! c
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
 			n=5 ! ca
-			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+			solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
 			n=6 ! mg
-	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=7 ! na
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=8 ! k
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=9 ! fe
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=10 ! s
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=11 ! si
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=12 ! cl
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=13 ! al
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
+ 			n=14 ! inert
+ 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,0.1D+00)
 ! 			do jj = 1,yn/cell
 ! 			do ii = 1,xn/cell
 ! 				solute(ii,jj,13) = max(solute(ii,jj,13),1.0e-8)
 ! 			end do
 ! 			end do
 		end do
-
+		write(*,*) "done with cstep advection"
 
 		
 		write(*,*) "about to stretch everything for transport to nodes"
@@ -3427,7 +3421,7 @@ yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,10)
 yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,11),kind=4), trim(path) // 'z_sol_si.txt' )
 yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,12),kind=4), trim(path) // 'z_sol_cl.txt' )
 yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,13),kind=4), trim(path) // 'z_sol_al.txt' )
-!yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,14),kind=4), trim(path) // 'sol_hco3.txt' )
+yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,14),kind=4), trim(path) // 'z_sol_inert.txt' )
 !yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(soluteMat(:,(yn/2)+1:,15),kind=4), trim(path) // 'sol_co3.txt' )
 
 ! primary minerals
@@ -3583,14 +3577,18 @@ else
 
 	
 		!--------------SLAVE PROCESSOR RUNS GEOCHEMICAL MODEL
-
+		write(*,*) "sum of medLocal(:,5)" , sum(medLocal(:,5))
 		! slave processor loops through each coarse cell
 		do m=1,num_rows_to_receive
+			
 
 			! TRANSPORT ONLY
 			!medLocal(m,5) = 0.0
 			! TRANSPORT ONLY
+			
 		if (medLocal(m,5) .eq. 1.0) then
+
+			
                        !write(*,*) medLocal(m,6:7)
 					   
 			! run the phreeqc alteration model
@@ -3599,6 +3597,8 @@ else
 
 
 ! BEGIN MIGRATION INSANITY
+
+!--------------GEOCHEM START
 
 primary3 = priLocal(m,:)
 secondary3 = secLocal(m,:)
@@ -3730,7 +3730,7 @@ kinetics = " precipitate_only"
 !kinetics = " "
 write(s_pressure,'(F25.10)') 250.0 - (medium3(7)/5.0)
 
-write(si_hematite,'(F25.10)') 1.0!-(solute3(1)*2.5) + 30.0
+write(si_hematite,'(F25.10)') 1.0! -(solute3(1)*2.5) + 30.0
 
 inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 !&"    pH " // trim(s_pH) //NEW_LINE('')// &
@@ -3815,7 +3815,7 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 
  &"   Saponite-Ca 0.0 " // trim(s_saponite_ca) // kinetics //NEW_LINE('')// &
  &"   Pyrrhotite 0.0 " // trim(s_pyrrhotite) // kinetics //NEW_LINE('')// &
- &"   Magnetite 0.0 " // trim(s_magnetite) // kinetics //NEW_LINE('')// &
+!  &"   Magnetite 0.0 " // trim(s_magnetite) // kinetics //NEW_LINE('')// &
   &"   Daphnite-7a 0.0 " // trim(s_daphnite_7a) // kinetics //NEW_LINE('')// &
   &"   Daphnite-14a 0.0 " // trim(s_daphnite_14a) // kinetics //NEW_LINE('')// &
  &"   Vermiculite-K 0.0 " // trim(s_verm_k) // kinetics //NEW_LINE('')// &
@@ -3846,7 +3846,7 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 ! &"      10 rate0 =0.01*" // trim(s_glass) //"*(7.7e-11)*exp(-25.0/(.008314*TK))" //NEW_LINE('')// &
 
 ! SAVE 04/27/16
-&"    10 rate0=M*46.5*(1.53e-5)*0.1*0.001*(1e4)*(2.51189e-6)*exp(-25.5/(.008314*TK))" // &
+&"    10 rate0=M*46.5*(1.53e-5)*0.1*0.0001*(1e4)*(2.51189e-6)*exp(-25.5/(.008314*TK))" // &
 &"*(((ACT('H+')^3)/(ACT('Al+3')))^.333)" //NEW_LINE('')// &
 ! &"    10 rate0=M*46.5*(1.53e-5)*0.01*1.0*(1.0e4)*(2.51189e-6)*exp(-25.5/(.008314*TK))" // &
 ! &"*(((ACT('H+')^3)/(ACT('Al+3')))^.333)" //NEW_LINE('')// &
@@ -4158,6 +4158,8 @@ id = CreateIPhreeqc()
 ! 	!STOP
 ! END IF
 
+
+!--------------GEOCHEM TO VARIABLES
 
 IF (id.LT.0) THEN
 	write(*,*) "weird stop?"
@@ -5877,8 +5879,8 @@ solute_next = sol
 ! qx = cstep_int*mstep/(cstep_num*dx)
 ! qy = cstep_int*mstep/(cstep_num*dy)
 
-qx = dt*mstep/(dx*ar)
-dy = dy*mstep/(dy*ar)
+qx = dt*mstep/(cstep*dx)
+dy = dy*mstep/(cstep*dy)
 
 ! uLong = reshape(uTransport(2:xn-1,1:yn), (/(xn-2)*(yn-0)/))
 ! !! transpose coarse needed!
@@ -6047,7 +6049,7 @@ do i = 2,xn-1
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (uTransport(i,j)*(mstep/ar)*0.5/dx) * (sigma5 - sigma6) * (dx - uTransport(i,j)*(mstep/ar))
+						correction = (uTransport(i,j)*qx*0.5) * (sigma5 - sigma6) * (dx - uTransport(i,j)*qx*dx)
 						solute_next(i,j) = solute_next(i,j) - correction
 
 					end if
@@ -6165,7 +6167,7 @@ do i = 2,xn-1
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (uTransport(i,j)*(mstep/ar)*0.5/dx) * (sigma6 - sigma5) * (dx - uTransport(i,j)*(mstep/ar))
+						correction = (uTransport(i,j)*qx*0.5) * (sigma6 - sigma5) * (dx - uTransport(i,j)*qx*dx)
 						solute_next(i,j) = solute_next(i,j) - correction
 					end if
 				end if
@@ -6336,7 +6338,7 @@ do i = 1,xn
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (vTransport(i,j)*(mstep/ar)*0.5/dy) * (sigma5 - sigma6) * (dy - vTransport(i,j)*(mstep/ar))
+						correction = (vTransport(i,j)*qy*0.5) * (sigma5 - sigma6) * (dy - vTransport(i,j)*qy*dy)
 						solute_next(i,j) = solute_next(i,j) - correction
 				end if
 				! end correction loop
@@ -6429,7 +6431,7 @@ do i = 1,xn
 ! 						write(*,*) sigma5
 ! 						write(*,*) "sigma6"
 ! 						write(*,*) sigma6
-						correction = (vTransport(i,j)*(mstep/ar)*0.5/dy) * (sigma6 - sigma5) * (dy - vTransport(i,j)*(mstep/ar))
+						correction = (vTransport(i,j)*qy*0.5) * (sigma6 - sigma5) * (dy - vTransport(i,j)*qy*dy)
 						solute_next(i,j) = solute_next(i,j) - correction
 
 					end if

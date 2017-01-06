@@ -224,6 +224,7 @@ solute(:,:,4) = param_dic !1.2e-2 ! H2CO3
 !solute(1:xn/2,:,4) = param_dic*2.0
 !solute(xn-10:xn,1:yn*4/6,4) = param_dic*2.0
 solute(:,:,5) = .01028 ! Ca
+solute(:xn/2,:,5) = .02028 ! Ca
 solute(:,:,6) = .0528 ! Mg
 solute(:,:,7) = .460 ! Na
 solute(:,:,8) = .00995 ! K
@@ -232,7 +233,7 @@ solute(:,:,10) = .028 ! 1.0e-4 ! S(6)
 solute(:,:,11) = 0.0!0.00018 !2.0e-4 ! Si
 solute(:,:,12) = .540 ! Cl
 solute(:,:,13) =  0.0!1.0e-8 ! Al
-solute(:,:,14) = .00245 ! HCO3-
+solute(:,:,14) = .00245 ! inert
 solute(:,:,15) = 0.0 ! CO3-2
 
 !solute(1:xn/(2*cell),yn/cell-5:yn/cell,4) = .0022
@@ -266,7 +267,8 @@ medium(:,:,2) = 0.0 ! s_sp
 medium(:,:,3) = .0266*10.0 !.1860 ! water_volume
 medium(:,:,4) = 1.0! reactive fraction now!
 medium(:,:,5) = 1.0 ! rxn toggle
-medium(:,:,5) = 1.0 ! ALL CELLS ON/OFF
+medium(:,:,5) = 0.0 ! ALL CELLS ON/OFF
+medium(1,:,5) = 1.0
 medium(:,:,6) = 0.0 ! x-coord
 medium(:,:,7) = 0.0 ! y-coord
 
@@ -1564,6 +1566,10 @@ end if
 		
 		if ((x(g) .le. param_w) .or. (x(g) .ge. x_max-param_w_rhs)) then
 			medium(g,gg,5) = 0.0 ! NO REACTIONS IN OUTCROPS
+		end if
+		
+		if (g .gt. f_index1 - 1) then
+			medium(g,gg,5) = 0.0 ! NO REACTIONS PAST FRACTURE
 		end if
 
 	end do
