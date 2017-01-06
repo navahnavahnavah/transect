@@ -5880,7 +5880,7 @@ solute_next = sol
 ! qy = cstep_int*mstep/(cstep_num*dy)
 
 qx = dt*mstep/(cstep*dx)
-dy = dy*mstep/(cstep*dy)
+qy = dt*mstep/(cstep*dy)
 
 ! uLong = reshape(uTransport(2:xn-1,1:yn), (/(xn-2)*(yn-0)/))
 ! !! transpose coarse needed!
