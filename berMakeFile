@@ -4,7 +4,7 @@
 
 # macros go here
 FC=mpif90
-FCFLAGS = -I/home/navah/include
+FCFLAGS = -I/home/navah/include -mcmodel=large -shared-intel
 
 
 # libraries needed for linking, unused in the examples

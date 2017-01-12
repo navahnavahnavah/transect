@@ -6,40 +6,40 @@ implicit none
 save
  
 integer :: g, gg, f, ff, long, longP, maskBit
-real(8) :: x(xn), y(yn), t(tn)
-real(8) :: rho0(xn,yn)
-real(8) :: bcx0(xn,2), bcy0(2,yn), bcxPsi(xn,2), bcyPsi(2,yn), ic0(xn,yn)
-real(8) :: kMat(xn,yn), lambdaMat(xn,yn), lambdaMatW(xn,yn), porosity(xn,yn), reactive(xn,yn), reactiveCoarse(xn/cell,yn/cell)
-real(8) :: reactiveCoarse1(xn/cell,yn/cell), reactiveCoarse2(xn/cell,yn/cell), sedx
-real(8) :: sed(xn), sed1(xn), sed2(xn), sed3(xn)
+real(4) :: x(xn), y(yn), t(tn)
+real(4) :: rho0(xn,yn)
+real(4) :: bcx0(xn,2), bcy0(2,yn), bcxPsi(xn,2), bcyPsi(2,yn), ic0(xn,yn)
+real(4) :: kMat(xn,yn), lambdaMat(xn,yn), lambdaMatW(xn,yn), porosity(xn,yn), reactive(xn,yn), reactiveCoarse(xn/cell,yn/cell)
+real(4) :: reactiveCoarse1(xn/cell,yn/cell), reactiveCoarse2(xn/cell,yn/cell), sedx
+real(4) :: sed(xn), sed1(xn), sed2(xn), sed3(xn)
 
 ! EXTRA BULLSHIT
-real(8) :: permeable(xn,4), permeability(xn,yn)
-real(8) :: mask(xn,yn), maskLong((xn-2)*(yn-2)), maskLongT((xn-2)*(yn-2)), h0Long((xn-2)*(yn-2)), h0LongT((xn-2)*(yn-2)), h0T(yn,xn)
-real(8) :: maskPLongFull(xn*yn)
-real(8) :: maskLongU((xn-2)*(yn-0)), maskLongTV((xn-0)*(yn-2))
-real(8) :: maskP(xn,yn), maskPLong((xn-2)*((yn/2)-2)), maskPLongT((xn-2)*((yn/2)-2))
-real(8) :: outerBand((xn-2)*((yn/2)-2),2*((yn/2)-2) + 1), bigBand((xn-2)*((yn/2)-2),4*((yn/2)-2) + 3)
-real(8) :: stretch(xn,yn), stretchLong((xn-2)*(yn-2)), stretchT(xn,yn), stretchLongT((xn-2)*(yn-2))
+real(4) :: permeable(xn,4), permeability(xn,yn)
+real(4) :: mask(xn,yn), maskLong((xn-2)*(yn-2)), maskLongT((xn-2)*(yn-2)), h0Long((xn-2)*(yn-2)), h0LongT((xn-2)*(yn-2)), h0T(yn,xn)
+real(4) :: maskPLongFull(xn*yn)
+real(4) :: maskLongU((xn-2)*(yn-0)), maskLongTV((xn-0)*(yn-2))
+real(4) :: maskP(xn,yn), maskPLong((xn-2)*((yn/2)-2)), maskPLongT((xn-2)*((yn/2)-2))
+real(4) :: outerBand((xn-2)*((yn/2)-2),2*((yn/2)-2) + 1), bigBand((xn-2)*((yn/2)-2),4*((yn/2)-2) + 3)
+real(4) :: stretch(xn,yn), stretchLong((xn-2)*(yn-2)), stretchT(xn,yn), stretchLongT((xn-2)*(yn-2))
 
 ! 05/06 INPUT STUFF
-real(8) :: primary(xn,yn,g_pri), primaryMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_pri)
-real(8) :: secondary(xn/cell,yn/cell,g_sec), secondaryMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_sec)
-real(8) :: solute(xn/cell,yn/cell,g_sol), soluteMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_sol)
-real(8) :: medium(xn/cell,yn/cell,g_med), mediumMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_med)
-real(8) :: iso(xn/cell,yn/cell,g_med), isoMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_iso)
-real(8) :: saturation(xn/cell,yn/cell,g_sec/2), saturationMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_sec/2)
-real(8) :: checkMat(xn*tn/(cell*(mstep*ar)),yn/cell), checkMatF(xn*tn/(mstep*ar),yn)
-real(8) :: soluteOcean(g_sol), sea(g_sol)
-real(8) :: inter, slope, inter2, slope2, boundary, buffer, edge, edge2
-real(8) :: bit_thing(xn,yn/2), bit_thing_t(yn/2,xn), bit_thing_t1(xn,yn/2)
+real(4) :: primary(xn,yn,g_pri), primaryMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_pri)
+real(4) :: secondary(xn/cell,yn/cell,g_sec), secondaryMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_sec)
+real(4) :: solute(xn/cell,yn/cell,g_sol), soluteMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_sol)
+real(4) :: medium(xn/cell,yn/cell,g_med), mediumMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_med)
+! real(4) :: iso(xn/cell,yn/cell,g_med), isoMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_iso)
+real(4) :: saturation(xn/cell,yn/cell,g_sec/2), saturationMat(xn*tn/(cell*(mstep*ar)),yn/cell,g_sec/2)
+real(4) :: checkMat(xn*tn/(cell*(mstep*ar)),yn/cell), checkMatF(xn*tn/(mstep*ar),yn)
+real(4) :: soluteOcean(g_sol), sea(g_sol)
+real(4) :: inter, slope, inter2, slope2, boundary, buffer, edge, edge2
+real(4) :: bit_thing(xn,yn/2), bit_thing_t(yn/2,xn), bit_thing_t1(xn,yn/2)
 
-! ISOTOPE AND OTHER PARTICLES
-real(8) :: isoTrace(5,ison,g_iso), isoTraceMat(5,ison*tn/(mstep*ar),g_iso)
-real(8) :: inertTrace(5,inertn), inertTraceMat(5,inertn*tn/(mstep*ar))
+! ! ISOTOPE AND OTHER PARTICLES
+! real(4) :: isoTrace(5,ison,g_iso), isoTraceMat(5,ison*tn/(mstep*ar),g_iso)
+! real(4) :: inertTrace(5,inertn), inertTraceMat(5,inertn*tn/(mstep*ar))
 
 ! coordinates for optimization
-real(8) :: fives(2,yn), tens(2,yn), twentyfives(2,xn), fifties(2,xn)
+real(4) :: fives(2,yn), tens(2,yn), twentyfives(2,xn), fifties(2,xn)
 
 ! shell file parameters
 character(len=300) :: path, path2, path_final, crashstring, restartstring, iso_path
@@ -47,26 +47,26 @@ character(len=300) :: param_o_string, param_w_string, param_w_rhs_string, param_
 character(len=300) :: param_dic_string, param_scope_string, param_trace_string, param_ch_string, param_f_dx_string, param_f_k_string
 character(len=300) :: param_paq_string, param_ch_rhs_string, param_f_freq_string, param_f_por_string
 integer :: in, crashstep, restart, param_trace
-real(8):: param_o, param_w, param_w_rhs, param_h, param_o_rhs, param_tsw, param_dic, param_scope, param_ch
-real(8) :: param_paq, param_ch_rhs, param_f_dx, param_f_k, param_f_freq, param_f_por
+real(4):: param_o, param_w, param_w_rhs, param_h, param_o_rhs, param_tsw, param_dic, param_scope, param_ch
+real(4) :: param_paq, param_ch_rhs, param_f_dx, param_f_k, param_f_freq, param_f_por
 
 
 ! TRANSPOSED
-real(8) :: hTrans(yn,xn), psiTrans(yn,xn), permeabilityTrans(yn,xn), phiTrans(yn,xn)
-real(8) :: primaryTrans(yn/cell,xn/cell,g_pri), secondaryTrans(yn/cell,xn/cell,g_sec), soluteTrans(yn/cell,xn/cell,g_sol), mediumTrans(yn/cell,xn/cell,g_med)
-real(8) :: genTrans(yn,xn)
+real(4) :: hTrans(yn,xn), psiTrans(yn,xn), permeabilityTrans(yn,xn), phiTrans(yn,xn)
+real(4) :: primaryTrans(yn/cell,xn/cell,g_pri), secondaryTrans(yn/cell,xn/cell,g_sec), soluteTrans(yn/cell,xn/cell,g_sol), mediumTrans(yn/cell,xn/cell,g_med)
+real(4) :: genTrans(yn,xn)
 
 
 ! D2 STUFF
 integer :: xn2, yn2, long2, m2
-real(8) :: perm2 = 1e-12
+real(4) :: perm2 = 1e-12
 
 
-real(8) :: frac6(yn,2), frac6_last(yn,2), temp6(yn,2), temp6_last(yn,2), temp6_mid(yn,2)
+real(4) :: frac6(yn,2), frac6_last(yn,2), temp6(yn,2), temp6_last(yn,2), temp6_mid(yn,2)
 integer :: f_index1 = xn-6, iter = 0, spinup = 100!50000
 
 
-real(8) :: temp6_a(yn), temp6_b(yn), temp6_c(yn), temp6_rhs(yn)
+real(4) :: temp6_a(yn), temp6_b(yn), temp6_c(yn), temp6_rhs(yn)
 
 
 contains
@@ -153,11 +153,11 @@ read (param_f_por_string, *) param_f_por
 permf = param_f_dx*param_f_dx/3.0
 
 ! SET UP THINGS THAT CAN'T BE DONE IN THE MODULE FOR WHATEVER REASON
-dx = ( x_max - x_min ) / real ( xn - 1, kind = 8 ) 
+dx = ( x_max - x_min ) / real ( xn - 1, kind = 4 ) 
 x = linspace ( xn, x_min,x_max )
-dy = ( y_max - y_min ) / real ( yn - 1, kind = 8 ) 
+dy = ( y_max - y_min ) / real ( yn - 1, kind = 4 ) 
 y = linspace ( yn, y_min, y_max )
-dt = ( t_max - t_min ) / real ( tn - 1, kind = 8 ) 
+dt = ( t_max - t_min ) / real ( tn - 1, kind = 4 ) 
 t = linspace ( tn, t_min, t_max)
 
 
@@ -205,7 +205,7 @@ primary(:,:,2) = 0.0 !.69600 ! augite
 primary(:,:,3) = 0.0 !.12600 ! pigeonite
 primary(:,:,4) = 0.0 !.04000 ! magnetite
 ! primary(:,:,5) = 4.96!9.67700 ! basaltic glass
-primary(:,:,5) = 50.0!9.67700 ! basaltic glass
+primary(:,:,5) = 5000.0!9.67700 ! basaltic glass
 
 ! secondary minerals [mol]
 secondary(:,:,:) = 0.0
@@ -218,13 +218,13 @@ saturation(:,:,:) = 0.0
 solute(:,:,1) = 8.2 ! ph
 solute(:,:,2) = .00243 ! Alk 1.6e-3
 ! solute(:,:,3) = .0266*1.0 !.1860 ! water mass
-solute(:,:,3) = .0266*10.0 !.1860 ! water mass
+solute(:,:,3) = 26.6!.266!.0266*10.0 !.1860 ! water mass
 !solute(:,:,4) = .002125 !1.2e-2 ! H2CO3
 solute(:,:,4) = param_dic !1.2e-2 ! H2CO3
 !solute(1:xn/2,:,4) = param_dic*2.0
 !solute(xn-10:xn,1:yn*4/6,4) = param_dic*2.0
 solute(:,:,5) = .01028 ! Ca
-solute(:xn/2,:,5) = .02028 ! Ca
+!solute(:xn/2,:,5) = .02028 ! Ca
 solute(:,:,6) = .0528 ! Mg
 solute(:,:,7) = .460 ! Na
 solute(:,:,8) = .00995 ! K
@@ -264,22 +264,22 @@ soluteOcean = (/ solute(1,1,1), solute(1,1,2), solute(1,1,3), solute(1,1,4), sol
 
 medium(:,:,1) = .1 ! phiCoarse
 medium(:,:,2) = 0.0 ! s_sp
-medium(:,:,3) = .0266*10.0 !.1860 ! water_volume
+medium(:,:,3) = 26.6!.266!.0266*10.0 !.1860 ! water_volume
 medium(:,:,4) = 1.0! reactive fraction now!
 medium(:,:,5) = 1.0 ! rxn toggle
-medium(:,:,5) = 0.0 ! ALL CELLS ON/OFF
-medium(1,:,5) = 1.0
+medium(:,:,5) = 1.0 ! ALL CELLS ON/OFF
+!medium(1,:,5) = 1.0
 medium(:,:,6) = 0.0 ! x-coord
 medium(:,:,7) = 0.0 ! y-coord
 
-iso(:,:,1) = 0.0!1.0
-! iso(1:xn/2,:,1) = 0.5!1.0
-iso(:,:,2) = 0.0
-! iso(1:xn/2,:,2) = 0.5!1.0
-
-! INITIALIZE ISOTOPE PARTICLES
-isoTrace = 0.0
-isoTraceMat = 0.0
+! iso(:,:,1) = 0.0!1.0
+! ! iso(1:xn/2,:,1) = 0.5!1.0
+! iso(:,:,2) = 0.0
+! ! iso(1:xn/2,:,2) = 0.5!1.0
+!
+! ! INITIALIZE ISOTOPE PARTICLES
+! isoTrace = 0.0
+! isoTraceMat = 0.0
 
 sea = soluteOcean
 
@@ -1727,7 +1727,7 @@ end subroutine init
 function h_bc(h_in)
 	
 	use globals
-	real(8) :: h_in(xn,yn), h_bc(xn,yn), rip_lith_y(xn)
+	real(4) :: h_in(xn,yn), h_bc(xn,yn), rip_lith_y(xn)
 	integer :: p, pp
 	
 	rip_lith_y = 0.48
@@ -2013,7 +2013,7 @@ end function h_bc
 function psi_bc(psi_in)
 	
 	use globals
-	real(8) :: psi_in(xn,yn), psi_bc(xn,yn)
+	real(4) :: psi_in(xn,yn), psi_bc(xn,yn)
 	integer :: p,pp
 	
 	psi_bc = psi_in
@@ -2207,7 +2207,7 @@ end function psi_bc
 function psi_siphon(psi_in)
 	
 	use globals
-	real(8) :: psi_in(xn,yn), psi_siphon(xn,yn)
+	real(4) :: psi_in(xn,yn), psi_siphon(xn,yn)
 	integer :: p,pp
 	
 	psi_siphon = psi_in
@@ -2440,7 +2440,7 @@ end function psi_siphon
 function psi_mod(psi_in)
 	
 	use globals
-	real(8) :: psi_in(xn,yn), psi_mod(xn,yn)
+	real(4) :: psi_in(xn,yn), psi_mod(xn,yn)
 	integer :: p,pp
 	
 	psi_mod = psi_in

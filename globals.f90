@@ -7,9 +7,9 @@ save
 ! integer, parameter :: testInt = 31, xn =60, yn = 60, altnum = 190,  cell = 2 !50000
 ! integer, parameter ::  g_pri = 5, g_sec = 114, g_sol = 15, g_med = 7, cstep = 5000, ar = 1
 ! integer, parameter :: tn = 8000, mstep = 400
-! real(8) :: x_min = 0.0D+00, x_max = 10000.0D+00, y_min = -1000.0D+00, y_max = 0.0D+00
-! real(8) :: t_min = 0.0D+00, t_max = 314000000000000.0 !1884000000000000.0 ! 10 ma
-! real(8) :: ki = .56, ra = 100.0, viscosity = 7.0e-4, cp = 4000.0, alpha =5.00e-5, k
+! real(4) :: x_min = 0.0, x_max = 10000.0, y_min = -1000.0, y_max = 0.0
+! real(4) :: t_min = 0.0, t_max = 314000000000000.0 !1884000000000000.0 ! 10 ma
+! real(4) :: ki = .56, ra = 100.0, viscosity = 7.0e-4, cp = 4000.0, alpha =5.00e-5, k
   
 ! ! JDF PARAMS JUNE 6
 ! integer, parameter :: testInt = 31, xn =581, yn = 56, altnum = 190,  cell = 1 !50000
@@ -17,46 +17,46 @@ save
 ! integer, parameter :: tn = 25000, mstep = 5000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 ! integer :: active_cells
 ! integer, parameter :: particle_sat = 1, inert_sat = 10
-! real(8) :: x_min = 0.0D+00, x_max = 29000.0D+00, y_min = -1350.0D+00, y_max = 25.0D+00
-! real(8) :: t_min = 0.0D+00, t_max = 1.57e13!23.55e13 !9.42e13 !
-! real(8) :: ki = .76, ra = 100.0, viscosity = 9.0e-4, cp = 600.0, alpha =0.4e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
+! real(4) :: x_min = 0.0, x_max = 29000.0, y_min = -1350.0, y_max = 25.0
+! real(4) :: t_min = 0.0, t_max = 1.57e13!23.55e13 !9.42e13 !
+! real(4) :: ki = .76, ra = 100.0, viscosity = 9.0e-4, cp = 600.0, alpha =0.4e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
 ! integer :: thresh=0, theta0
-! real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-! real(8) :: scope! = -5.0e-10
-! real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-! real(8) :: first = 0.56, factor = -.000206!-10.0
-! real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-! real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-! real(8) :: top5, top10, bottom5, bottom10, sumplace
-! real(8) :: ksed = 1e-16
-! real(8) :: fix_b, dpd
- 
+! real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+! real(4) :: scope! = -5.0e-10
+! real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+! real(4) :: first = 0.56, factor = -.000206!-10.0
+! real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+! real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+! real(4) :: top5, top10, bottom5, bottom10, sumplace
+! real(4) :: ksed = 1e-16
+! real(4) :: fix_b, dpd
+   
  
 ! JDF PARAMS WITH FRACTURE AUGUST 9
 integer, parameter :: testInt = 31, xn =581, yn = 68, altnum = 190,  cell = 1 !50000
-integer, parameter ::  g_pri = 5, g_sec = 114, g_sol = 15, g_med = 7, g_iso = 2, cstep = 10, ar = 10 ! cstep = 1000
-integer, parameter :: tn = 3000, mstep = 30, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
+integer, parameter ::  g_pri = 5, g_sec = 114, g_sol = 15, g_med = 7, g_iso = 2, cstep = 100, ar = 1 ! cstep = 1000
+integer, parameter :: tn = 100000, mstep = 1000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 integer :: active_cells
 integer, parameter :: particle_sat = 1, inert_sat = 10
-real(8) :: cstep_int
+real(4) :: cstep_int
 integer :: cstep_num
-real(8) :: u_1d
-real(8) :: x_min = 0.0D+00, x_max = 29000.0D+00, y_min = -1650.0D+00, y_max = 25.0
-real(8) :: t_min = 0.0D+00, t_max = 1.57e10!23.55e13 !9.42e13 !
-real(8) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =4.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
+real(4) :: u_1d
+real(4) :: x_min = 0.0, x_max = 29000.0, y_min = -1650.0, y_max = 25.0
+real(4) :: t_min = 0.0, t_max = 3.14e10!23.55e13 !9.42e13 !
+real(4) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =4.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
 integer :: thresh=0, theta0
-real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-real(8) :: scope! = -5.0e-10
-real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-real(8) :: first = 0.56, factor = -.000206!-10.0
-real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-real(8) :: top5, top10, bottom5, bottom10, sumplace
-real(8) :: ksed = 1e-16
-real(8) :: fix_b, dpd, dt_bit
-real(8) :: psi_bl, psi_br
-real(8) :: permf
-real(8) :: h_base, y_base, h_top, y_top, h_adjacent
+real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+real(4) :: scope! = -5.0e-10
+real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+real(4) :: first = 0.56, factor = -.000206!-10.0
+real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+real(4) :: top5, top10, bottom5, bottom10, sumplace
+real(4) :: ksed = 1e-16
+real(4) :: fix_b, dpd, dt_bit
+real(4) :: psi_bl, psi_br
+real(4) :: permf
+real(4) :: h_base, y_base, h_top, y_top, h_adjacent
 integer :: jj_base, jj_top
 
 
@@ -66,19 +66,19 @@ integer :: jj_base, jj_top
 ! integer, parameter :: tn = 120000, mstep = 12000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 ! integer :: active_cells
 ! integer, parameter :: particle_sat = 1, inert_sat = 10
-! real(8) :: x_min = 0.0D+00, x_max = 7250.0D+00, y_min = -1050.0D+00, y_max = 25.0
-! real(8) :: t_min = 0.0D+00, t_max = 18.84e12!23.55e13 !9.42e13 !
-! real(8) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =8.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
+! real(4) :: x_min = 0.0, x_max = 7250.0, y_min = -1050.0, y_max = 25.0
+! real(4) :: t_min = 0.0, t_max = 18.84e12!23.55e13 !9.42e13 !
+! real(4) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =8.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
 ! integer :: thresh=0, theta0
-! real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-! real(8) :: scope! = -5.0e-10
-! real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-! real(8) :: first = 0.56, factor = -.000206!-10.0
-! real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-! real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-! real(8) :: top5, top10, bottom5, bottom10, sumplace
-! real(8) :: ksed = 1e-16
-! real(8) :: fix_b, dpd, dt_bit
+! real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+! real(4) :: scope! = -5.0e-10
+! real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+! real(4) :: first = 0.56, factor = -.000206!-10.0
+! real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+! real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+! real(4) :: top5, top10, bottom5, bottom10, sumplace
+! real(4) :: ksed = 1e-16
+! real(4) :: fix_b, dpd, dt_bit
  
 ! ! FRACTURE BOX PARAMS AUGUST 5
 ! integer, parameter :: testInt = 31, xn =41, yn = 50, altnum = 190,  cell = 1 !50000
@@ -86,19 +86,19 @@ integer :: jj_base, jj_top
 ! integer, parameter :: tn = 2500, mstep = 500, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 ! integer :: active_cells
 ! integer, parameter :: particle_sat = 1, inert_sat = 10
-! real(8) :: x_min = 0.0D+00, x_max = 20.5D+00, y_min = 0.0, y_max = 25.0
-! real(8) :: t_min = 0.0D+00, t_max = 6.28e7!23.55e13 !9.42e13 !
-! real(8) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =8.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
+! real(4) :: x_min = 0.0, x_max = 20.5, y_min = 0.0, y_max = 25.0
+! real(4) :: t_min = 0.0, t_max = 6.28e7!23.55e13 !9.42e13 !
+! real(4) :: ki = .76, ra = 100.0, viscosity = .001, cp = 1173.0, alpha =8.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
 ! integer :: thresh=0, theta0
-! real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-! real(8) :: scope! = -5.0e-10
-! real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-! real(8) :: first = 0.56, factor = -.000206!-10.0
-! real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-! real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-! real(8) :: top5, top10, bottom5, bottom10, sumplace
-! real(8) :: ksed = 1e-16
-! real(8) :: fix_b, dpd
+! real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+! real(4) :: scope! = -5.0e-10
+! real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+! real(4) :: first = 0.56, factor = -.000206!-10.0
+! real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+! real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+! real(4) :: top5, top10, bottom5, bottom10, sumplace
+! real(4) :: ksed = 1e-16
+! real(4) :: fix_b, dpd
 
 ! ! RECTANGLE PARAMS TTT
 ! integer, parameter :: testInt = 31, xn =290, yn = 64, altnum = 190,  cell = 1 !50000
@@ -106,19 +106,19 @@ integer :: jj_base, jj_top
 ! integer, parameter :: tn = 200000, mstep = 20000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 ! integer :: active_cells
 ! integer, parameter :: particle_sat = 1, inert_sat = 10
-! real(8) :: x_min = 0.0D+00, x_max = 14450.0D+00, y_min = -1575.0D+00, y_max = 0.0D+00
-! real(8) :: t_min = 0.0D+00, t_max = 3.14e13!23.55e13 !9.42e13 !
-! real(8) :: ki = .56, ra = 100.0, viscosity = 9.0e-4, cp = 1007.0, alpha =1.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
+! real(4) :: x_min = 0.0, x_max = 14450.0, y_min = -1575.0, y_max = 0.0
+! real(4) :: t_min = 0.0, t_max = 3.14e13!23.55e13 !9.42e13 !
+! real(4) :: ki = .56, ra = 100.0, viscosity = 9.0e-4, cp = 1007.0, alpha =1.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5 !cp = 1175.0
 ! integer :: thresh=0
-! real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-! real(8) :: scope! = -5.0e-10
-! real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-! real(8) :: first = 0.4, factor = 0.0!-.0008!-10.0
-! real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-! real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-! real(8) :: top5, top10, bottom5, bottom10, sumplace
-! real(8) :: ksed = 1e-16
-! real(8) :: fix_b
+! real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+! real(4) :: scope! = -5.0e-10
+! real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+! real(4) :: first = 0.4, factor = 0.0!-.0008!-10.0
+! real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+! real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+! real(4) :: top5, top10, bottom5, bottom10, sumplace
+! real(4) :: ksed = 1e-16
+! real(4) :: fix_b
  
 ! ! RECTANGLE PARAMS
 ! integer, parameter :: testInt = 31, xn =290, yn = 88, altnum = 190,  cell = 1 !50000
@@ -126,19 +126,19 @@ integer :: jj_base, jj_top
 ! integer, parameter :: tn = 480000, mstep = 16000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 ! integer :: active_cells
 ! integer, parameter :: particle_sat = 1, inert_sat = 10
-! real(8) :: x_min = 0.0D+00, x_max = 14450.0D+00, y_min = -2175.0D+00, y_max = 0.0D+00
-! real(8) :: t_min = 0.0D+00, t_max = 37.68e13 !9.42e13 !
-! real(8) :: ki = .56, ra = 100.0, viscosity = 9.0e-4, cp = 3700.0, alpha =0.5e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5
+! real(4) :: x_min = 0.0, x_max = 14450.0, y_min = -2175.0, y_max = 0.0
+! real(4) :: t_min = 0.0, t_max = 37.68e13 !9.42e13 !
+! real(4) :: ki = .56, ra = 100.0, viscosity = 9.0e-4, cp = 3700.0, alpha =0.5e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5
 ! integer :: thresh=0
-! real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-! real(8) :: scope! = -5.0e-10
-! real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-! real(8) :: first = 0.44, factor = 0.0!-.0008!-10.0
-! real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-! real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-! real(8) :: top5, top10, bottom5, bottom10, sumplace
-! real(8) :: ksed = 1e-16
-! real(8) :: fix_b
+! real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+! real(4) :: scope! = -5.0e-10
+! real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+! real(4) :: first = 0.44, factor = 0.0!-.0008!-10.0
+! real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+! real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+! real(4) :: top5, top10, bottom5, bottom10, sumplace
+! real(4) :: ksed = 1e-16
+! real(4) :: fix_b
 
 ! ! JDF PARAMS
 ! integer, parameter :: testInt = 31, xn =600, yn = 128, altnum = 190,  cell = 1 !50000
@@ -146,39 +146,39 @@ integer :: jj_base, jj_top
 ! integer, parameter :: tn = 60000, mstep = 6000, wscale = 1, ison = 10, inertn = 10! ison = 10000, inertn = 100000
 ! integer :: active_cells
 ! integer, parameter :: particle_sat = 1, inert_sat = 10
-! real(8) :: x_min = 0.0D+00, x_max = 28950.0D+00, y_min = -3175.0D+00, y_max = 0.0D+00
-! real(8) :: t_min = 0.0D+00, t_max = 18.84e13 !9.42e13 !
-! real(8) :: ki = .56, ra = 100.0, viscosity = 9.0e-4, cp = 3700.0, alpha =3.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5
+! real(4) :: x_min = 0.0, x_max = 28950.0, y_min = -3175.0, y_max = 0.0
+! real(4) :: t_min = 0.0, t_max = 18.84e13 !9.42e13 !
+! real(4) :: ki = .56, ra = 100.0, viscosity = 9.0e-4, cp = 3700.0, alpha =3.0e-4, k, calc0, psi_round, psi_round2 !alpha =4.0e-5
 ! integer :: thresh=0
-! real(8) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
-! real(8) :: scope! = -5.0e-10
-! real(8) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
-! real(8) :: first = 0.56, factor = -.0008!-10.0
-! real(8) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
-! real(8) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
-! real(8) :: top5, top10, bottom5, bottom10, sumplace
-! real(8) :: ksed = 1e-16
-! real(8) :: fix_b
+! real(4) :: in_left1, in_left2, in_right1, in_right2, in_left3, in_right3, max_left, max_right, fac_left, fac_right
+! real(4) :: scope! = -5.0e-10
+! real(4) :: scope1, bh5, bh10, ah5, ah10, psi50(xn), f50a(xn), f50b(xn), f50c(xn), hflat(xn), maskflat(xn)
+! real(4) :: first = 0.56, factor = -.0008!-10.0
+! real(4) :: psi5(yn), f5a(yn), f5b(yn), f5c(yn)
+! real(4) :: psi10(yn), f10a(yn), f10b(yn), f10c(yn)
+! real(4) :: top5, top10, bottom5, bottom10, sumplace
+! real(4) :: ksed = 1e-16
+! real(4) :: fix_b
  
-real(8) :: dt, dx, dy, dt0 = 0.001
-real(8) :: dPsi, psiLast(xn,yn)
+real(4) :: dt, dx, dy, dt0 = 0.001
+real(4) :: dPsi, psiLast(xn,yn)
 integer :: loop
-real(8) :: lambda = 1.14
-real(8) :: grav = 9.8
-real(8) :: rho_fluid = 1000.0
+real(4) :: lambda = 1.14
+real(4) :: grav = 9.8
+real(4) :: rho_fluid = 1000.0
 character(len=300) :: s_i
-real(8) :: rho_total=2530.0
+real(4) :: rho_total=2530.0
 character(len=20) :: kinetics!=" precipitate_only"
 character(len=25) :: s_pressure = "250.0"
 character(len=25) :: si_hematite
 integer :: i_unit, code
-real(8) :: something, refL, refR
+real(4) :: something, refL, refR
 integer :: vfe1=24, vfe2 = 16
 contains
 	
 	
 	
-	
+ 
 
 	
 	
@@ -220,7 +220,7 @@ function band(a,m,n)
 
 implicit none
 integer g,h,i,j,k,m,n,r
-real(8) :: a(n,m), band(n,m)
+real(4) :: a(n,m), band(n,m)
 real eps
 
 write(*,*) m !57 = 2*(yn/2 - 2) + 1 = 2*28 + 1 = 56 + 1
@@ -270,8 +270,8 @@ end function band
 !
 ! implicit none
 ! integer :: g,h,i,j,k,m,n,r
-! real(8) :: a(n,m)!, band(n,m)
-! real(8) :: eps
+! real(4) :: a(n,m)!, band(n,m)
+! real(4) :: eps
 !
 !
 !
@@ -362,7 +362,7 @@ function solve(a,b,m,n)
 
 implicit none
 integer i,j,k,m,n,r
-real(8) :: a(n,m), b(n), solve(n)
+real(4) :: a(n,m), b(n), solve(n)
 
 solve = b
 r = (m+1)/2
@@ -412,13 +412,13 @@ function linspace ( n, a_first, a_last )
 
   implicit none
   integer, intent(in) :: n 
-   real (8) :: linspace(n)
+   real (4) :: linspace(n)
    integer :: i
-   real (8) :: a(n)
-   real (8) , intent(in) ::  a_first, a_last
+   real (4) :: a(n)
+   real (4) , intent(in) ::  a_first, a_last
 
   if ( n == 1 ) then
-    a(1) = ( a_first + a_last ) / 2.0D+00
+    a(1) = ( a_first + a_last ) / 2.0
   else
     do i = 1, n
       a(i) = ( real ( n - i,     kind = 8 ) * a_first &
@@ -453,13 +453,13 @@ end function linspace
 function Gsselm(a,row)
 	implicit none
 	INTEGER, INTENT(IN) :: row
-	real(8) , INTENT(IN OUT)  ::  a(:,:)   	!Assume shape (:)
-	real(8) , DIMENSION(row) :: Gsselm
+	real(4) , INTENT(IN OUT)  ::  a(:,:)   	!Assume shape (:)
+	real(4) , DIMENSION(row) :: Gsselm
 
 	INTEGER i,j,k
 	INTEGER, DIMENSION(2) :: shap
-	real(8) , ALLOCATABLE :: swap_ik(:)
-	real(8)  :: tmp
+	real(4) , ALLOCATABLE :: swap_ik(:)
+	real(4)  :: tmp
 
 	ALLOCATE (swap_ik(row+1))
 
@@ -549,7 +549,7 @@ END function Gsselm
 
 function tridiag(a,b,c,d,nn)
 integer :: nn, k, km1, i
-real(8) :: aa(nn,nn), a(nn), b(nn), c(nn), d(nn), tridiag(nn), xm
+real(4) :: aa(nn,nn), a(nn), b(nn), c(nn), d(nn), tridiag(nn), xm
 !      dimension a(nn),b(nn),c(nn),d(nn)
       !tridiag = aa(:,nn+1)
       tridiag = d
@@ -701,7 +701,7 @@ end function get_unit
 
 function f_linspace(x_1, x_n, n)
 integer :: n, i
-real(8) :: x_1, x_n, f_linspace(n)
+real(4) :: x_1, x_n, f_linspace(n)
 
 do i = 1,n
 f_linspace(i) = x_1 + (x_n - x_1)*(i-1) / (n-1)
@@ -725,7 +725,7 @@ end function f_linspace
 function moving_average (x1, n, m)
 
 implicit none
-real(8) :: x1(n), moving_average(n), sumx
+real(4) :: x1(n), moving_average(n), sumx
 integer :: m, i, j, i1, i2, k1, k2, iflag, nd, n
 
 !        Dimension x1(n), moving_average(n)

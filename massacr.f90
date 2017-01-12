@@ -34,22 +34,22 @@ interface
 		! integers
 		integer :: i, j, n, ii, m=3
 		! inputs 
-		real(8) :: sx, sy, qx, qy, rho_in(xn,yn), phi_in(xn,yn)
+		real(4) :: sx, sy, qx, qy, rho_in(xn,yn), phi_in(xn,yn)
 		! velocity stuff
-		real(8) :: uf(xn,yn), vf(xn,yn), u_in(xn,yn), v_in(xn,yn)
-		real(8) :: u(xn,yn), v(xn,yn), uLong((xn-2)*(yn-2)), vLong((xn-2)*(yn-2))
-		real(8) ::  velocities0(xn,2*yn)
+		real(4) :: uf(xn,yn), vf(xn,yn), u_in(xn,yn), v_in(xn,yn)
+		real(4) :: u(xn,yn), v(xn,yn), uLong((xn-2)*(yn-2)), vLong((xn-2)*(yn-2))
+		real(4) ::  velocities0(xn,2*yn)
 		! matrix stuff
-		real(8) :: h(xn,yn), h_next(xn,yn), psi(xn,yn)
-		! real(8) :: aa((xn-2)*(yn-2),(xn-2)*(yn-2)), a((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
-		real(8) :: aBand((xn-2)*(yn-2),5), bBand((xn-2)*(yn-2),5)
-		! real(8) :: bb((xn-2)*(yn-2),(xn-2)*(yn-2)), b((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
-		real(8) :: h0(xn,yn), uVec((xn-2)*(yn-2)), h_nextRow((xn-2)*(yn-2))
-		real(8) :: kMatLong((xn-2)*(yn-2))
-		real(8) :: mn(xn,yn)
-		real(8) :: sxMat(xn,yn), syMat(xn,yn), sxLong((xn-2)*(yn-2)), syLong((xn-2)*(yn-2))
-		real(8) :: qxMat(xn,yn), qyMat(xn,yn), qxLong((xn-2)*(yn-2)), qyLong((xn-2)*(yn-2))
-		real(8) :: frac6_in(yn,2), temp6_in(yn,2), dt_in
+		real(4) :: h(xn,yn), h_next(xn,yn), psi(xn,yn)
+		! real(4) :: aa((xn-2)*(yn-2),(xn-2)*(yn-2)), a((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
+		real(4) :: aBand((xn-2)*(yn-2),5), bBand((xn-2)*(yn-2),5)
+		! real(4) :: bb((xn-2)*(yn-2),(xn-2)*(yn-2)), b((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
+		real(4) :: h0(xn,yn), uVec((xn-2)*(yn-2)), h_nextRow((xn-2)*(yn-2))
+		real(4) :: kMatLong((xn-2)*(yn-2))
+		real(4) :: mn(xn,yn)
+		real(4) :: sxMat(xn,yn), syMat(xn,yn), sxLong((xn-2)*(yn-2)), syLong((xn-2)*(yn-2))
+		real(4) :: qxMat(xn,yn), qyMat(xn,yn), qxLong((xn-2)*(yn-2)), qyLong((xn-2)*(yn-2))
+		real(4) :: frac6_in(yn,2), temp6_in(yn,2), dt_in
 	end function h_next
 
 	! solves streamfunction vorticity equation
@@ -60,16 +60,16 @@ interface
 		! integers
 		integer :: i, j, ii, n, m, stage
 		! inputs
-		real(8) :: rhs0(xn,yn), rhs1(xn,yn), rhsLong(longP)
-		real(8) :: h(xn,yn), psi(xn,yn), rho_in(xn,yn), phi_in(xn,yn), perm_in(xn,yn)
+		real(4) :: rhs0(xn,yn), rhs1(xn,yn), rhsLong(longP)
+		real(4) :: h(xn,yn), psi(xn,yn), rho_in(xn,yn), phi_in(xn,yn), perm_in(xn,yn)
 		! matrix stuff
-		real(8) :: uVec(longP), psiLong((xn)*(yn)), psi_nextRow(longP)
-		real(8) :: psi_next(xn,yn)
-		real(8) :: mn(xn,yn)
+		real(4) :: uVec(longP), psiLong((xn)*(yn)), psi_nextRow(longP)
+		real(4) :: psi_next(xn,yn)
+		real(4) :: mn(xn,yn)
 		! back to band
-		real(8) :: aBand0(longP,4*((yn/2)-2) + 3), band_in(longP,4*((yn/2)-2) + 3)
-		real(8) :: rhoLong(longP)
-		real(8) :: permx(xn,yn), permy(xn,yn), frac6_in(yn,2)
+		real(4) :: aBand0(longP,4*((yn/2)-2) + 3), band_in(longP,4*((yn/2)-2) + 3)
+		real(4) :: rhoLong(longP)
+		real(4) :: permx(xn,yn), permy(xn,yn), frac6_in(yn,2)
 	end function psi_next
 	
 	
@@ -79,13 +79,13 @@ interface
 		use initialize
 		implicit none
 		integer :: i, j, ii, n, m
-		real(8) :: perm_in(xn,yn), phi_in(xn,yn), rho_in(xn,yn)
-		real(8) :: permx(xn,yn), permy(xn,yn), permLong(longP)
-		real(8) :: permxLong(longP), permyLong(longP)
-		real(8) :: innerBand(longP,2*((yn/2)-2) + 1), make_band(longP,2*((yn/2)-2) + 1)
-		real(8) :: permx_left(xn,yn), permx_right(xn,yn), permy_bottom(xn,yn), permy_top(xn,yn)
-		real(8) :: permx_left_long(longP), permx_right_long(longP), permy_bottom_long(longP), permy_top_long(longP)
-		real(8) :: perm_long(longP)
+		real(4) :: perm_in(xn,yn), phi_in(xn,yn), rho_in(xn,yn)
+		real(4) :: permx(xn,yn), permy(xn,yn), permLong(longP)
+		real(4) :: permxLong(longP), permyLong(longP)
+		real(4) :: innerBand(longP,2*((yn/2)-2) + 1), make_band(longP,2*((yn/2)-2) + 1)
+		real(4) :: permx_left(xn,yn), permx_right(xn,yn), permy_bottom(xn,yn), permy_top(xn,yn)
+		real(4) :: permx_left_long(longP), permx_right_long(longP), permy_bottom_long(longP), permy_top_long(longP)
+		real(4) :: perm_long(longP)
 	end function make_band
 	
 	
@@ -94,10 +94,10 @@ interface
 		use initialize
 		implicit none
 		integer :: i, j, ii, n, m, mm, nn, num, num_sat
-		real(8) :: trace_in(5,num), particles_next(5,num)
-		real(8) :: uTransport(xn,yn), vTransport(xn,yn)
-		real(8) :: u_wt, v_wt, inval
-		real(8) :: rando
+		real(4) :: trace_in(5,num), particles_next(5,num)
+		real(4) :: uTransport(xn,yn), vTransport(xn,yn)
+		real(4) :: u_wt, v_wt, inval
+		real(4) :: rando
 	end function particles_next
 		
 	! transports solutes
@@ -108,20 +108,20 @@ interface
 		! integers
 		integer :: i, j, ii, n, m
 		! inputs
-		real(8) :: sol(xn/cell,yn/cell), sol0(xn/cell,yn/cell)
-		real(8) :: uTransport(xn/cell,yn/cell), vTransport(xn/cell,yn/cell)
+		real(4) :: sol(xn/cell,yn/cell), sol0(xn/cell,yn/cell)
+		real(4) :: uTransport(xn/cell,yn/cell), vTransport(xn/cell,yn/cell)
 		! solver stuff
-		! real(8) :: uLong((xn/cell-2)*(yn/cell-2)), vLong((xn/cell-2)*(yn/cell-2))
-		! real(8) :: aBand((xn/cell-2)*(yn/cell-2),5), bBand((xn/cell-2)*(yn/cell-2),5)
-		! real(8) :: qx, qy, solute_next(xn/cell,yn/cell), vec((xn/cell-2)*(yn/cell-2))
-		! real(8) :: sol_nextRow((xn/cell-2)*(yn/cell-2))
-		real(8) :: uLong(((xn/cell)-2)*((yn/cell)-0)), vLong(((xn/cell)-0)*((yn/cell)-2))
-		real(8) :: aBand(((xn/cell)-2)*((yn/cell)-0),5), bBand(((xn/cell)-0)*((yn/cell)-2),5)
-		real(8) :: qx, qy, solute_next(xn/cell,yn/cell), vec(((xn/cell)-2)*((yn/cell)-0))
-		real(8) :: sol_nextRow(((xn/cell)-2)*((yn/cell)-0)), sol_nextRowB(((xn/cell)-0)*((yn/cell)-2))
-		real(8) :: seaw
-		real(8) :: bm1(xn,yn), b0(xn,yn), bp1(xn,yn), correction, sigma1, sigma2, sigma1a, sigma1b, sigma2a, sigma2b
-		real(8) :: sigma3, sigma4, sigma3a, sigma3b, sigma4a, sigma4b, sigma5, sigma6
+		! real(4) :: uLong((xn/cell-2)*(yn/cell-2)), vLong((xn/cell-2)*(yn/cell-2))
+		! real(4) :: aBand((xn/cell-2)*(yn/cell-2),5), bBand((xn/cell-2)*(yn/cell-2),5)
+		! real(4) :: qx, qy, solute_next(xn/cell,yn/cell), vec((xn/cell-2)*(yn/cell-2))
+		! real(4) :: sol_nextRow((xn/cell-2)*(yn/cell-2))
+		real(4) :: uLong(((xn/cell)-2)*((yn/cell)-0)), vLong(((xn/cell)-0)*((yn/cell)-2))
+		real(4) :: aBand(((xn/cell)-2)*((yn/cell)-0),5), bBand(((xn/cell)-0)*((yn/cell)-2),5)
+		real(4) :: qx, qy, solute_next(xn/cell,yn/cell), vec(((xn/cell)-2)*((yn/cell)-0))
+		real(4) :: sol_nextRow(((xn/cell)-2)*((yn/cell)-0)), sol_nextRowB(((xn/cell)-0)*((yn/cell)-2))
+		real(4) :: seaw
+		real(4) :: bm1(xn,yn), b0(xn,yn), bp1(xn,yn), correction, sigma1, sigma2, sigma1a, sigma1b, sigma2a, sigma2b
+		real(4) :: sigma3, sigma4, sigma3a, sigma3b, sigma4a, sigma4b, sigma5, sigma6
 	end function solute_next
 	
 ! 	! runs geochemical alteration model for a single (coarse) cell
@@ -131,10 +131,10 @@ interface
 ! 		use alteration
 ! 		! declare yo shit
 ! 		integer :: order
-! 		real(8) :: temp, timestep
-! 		real(8) :: alt_next(1,167)
-! 		real(8) :: alter0(1,167)
-! 		real(8) :: primaryList(g_pri), secondaryList(g_sec), soluteList(g_sol), mediumList(g_med)
+! 		real(4) :: temp, timestep
+! 		real(4) :: alt_next(1,167)
+! 		real(4) :: alter0(1,167)
+! 		real(4) :: primaryList(g_pri), secondaryList(g_sec), soluteList(g_sol), mediumList(g_med)
 ! 	end function alt_next
 
 	! calculates fluid density
@@ -143,7 +143,7 @@ interface
 		use initialize
 		implicit none
 		integer :: i,j
-		real(8) :: h_in(xn,yn), rho_next(xn,yn)
+		real(4) :: h_in(xn,yn), rho_next(xn,yn)
 	end function rho_next
 	
 	! calculates fluid density
@@ -152,7 +152,7 @@ interface
 		use initialize
 		implicit none
 		integer :: i,j
-		real(8) :: h_in, rho_one
+		real(4) :: h_in, rho_one
 	end function rho_one
 	
 	! calculates viscosity
@@ -161,7 +161,7 @@ interface
 		use initialize
 		implicit none
 		integer :: i,j
-		real(8) :: h_in(xn,yn), visc_next(xn,yn)
+		real(4) :: h_in(xn,yn), visc_next(xn,yn)
 	end function visc_next
 
 	! calculates velocities from streamfunction values
@@ -169,8 +169,8 @@ interface
 		use globals
 		use initialize
 		implicit none
-		real(8) :: velocities(xn,2*yn), psi(xn,yn)
-		real(8) :: u0(xn,yn), v0(xn,yn)
+		real(4) :: velocities(xn,2*yn), psi(xn,yn)
+		real(4) :: u0(xn,yn), v0(xn,yn)
 	end function velocities
 
         ! calculates velocities from COARSE streamfunction values
@@ -178,8 +178,8 @@ interface
 		use globals
 		use initialize
 		implicit none
-		real(8) :: velocitiesCoarse(xn/cell,2*yn/cell), psiCoarse(xn/cell,yn/cell)
-		real(8) :: u0(xn/cell,yn/cell), v0(xn/cell,yn/cell)
+		real(4) :: velocitiesCoarse(xn/cell,2*yn/cell), psiCoarse(xn/cell,yn/cell)
+		real(4) :: u0(xn/cell,yn/cell), v0(xn/cell,yn/cell)
 	end function velocitiesCoarse
 
 	! calculates partial derivative of any 1D or 2D array
@@ -188,8 +188,8 @@ interface
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial(rows,cols)
 	end function partial
 	
 	! calculates partial derivative of any 1D or 2D array
@@ -198,8 +198,8 @@ interface
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial_edge(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial_edge(rows,cols)
 	end function partial_edge
 	
 	! calculates partial derivative of any 1D or 2D array
@@ -208,8 +208,8 @@ interface
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial_edge_p(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial_edge_p(rows,cols)
 	end function partial_edge_p
 
 	! writes 2D array to file
@@ -236,14 +236,14 @@ end interface
 !--------------DECLARE EVERYTHING 
 
 ! dependent variable arrays
-real(8) :: h(xn,yn), psi(xn,yn), pside(xn,yn) ! xn rows deep & yn columns wide
-real(8) :: hmat((xn*tn/(mstep*ar)),yn), psimat((xn*tn/(mstep*ar)),yn), rhomat((xn*tn/(mstep*ar)),yn)
-real(8) :: velocities0(xn,2*yn)
-real(8) :: phimat((xn*tn/(mstep*ar)),yn), umat((xn*tn/(mstep*ar)),yn), vmat((xn*tn/(mstep*ar)),yn), rhsmat((xn*tn/(mstep*ar)),yn)
-real(8) :: permxMat((xn*tn/(mstep*ar)),yn), permyMat((xn*tn/(mstep*ar)),yn)
-real(8) :: psiCoarseMat((xn*tn/(mstep*ar)),yn), uCoarseMat((xn*tn/(mstep*ar)),yn), vCoarseMat((xn*tn/(mstep*ar)),yn)
-real(8) :: permmat((xn*tn/(mstep*ar)),yn)
-real(8) :: u(xn,yn), v(xn,yn),  permx(xn,yn), permy(xn,yn), uTest(xn,yn), vTest(xn,yn), psiTest(xn,yn), hTest(xn,yn)
+real(4) :: h(xn,yn), psi(xn,yn), pside(xn,yn) ! xn rows deep & yn columns wide
+real(4) :: hmat((xn*tn/(mstep*ar)),yn), psimat((xn*tn/(mstep*ar)),yn), rhomat((xn*tn/(mstep*ar)),yn)
+real(4) :: velocities0(xn,2*yn)
+real(4) :: phimat((xn*tn/(mstep*ar)),yn), umat((xn*tn/(mstep*ar)),yn), vmat((xn*tn/(mstep*ar)),yn), rhsmat((xn*tn/(mstep*ar)),yn)
+real(4) :: permxMat((xn*tn/(mstep*ar)),yn), permyMat((xn*tn/(mstep*ar)),yn)
+real(4) :: psiCoarseMat((xn*tn/(mstep*ar)),yn), uCoarseMat((xn*tn/(mstep*ar)),yn), vCoarseMat((xn*tn/(mstep*ar)),yn)
+real(4) :: permmat((xn*tn/(mstep*ar)),yn)
+real(4) :: u(xn,yn), v(xn,yn),  permx(xn,yn), permy(xn,yn), uTest(xn,yn), vTest(xn,yn), psiTest(xn,yn), hTest(xn,yn)
 
 
 ! autumn performance review
@@ -251,11 +251,11 @@ integer :: counti, countf, count_rate
 real :: timeBit
 
 ! material properties
-real(8) :: rho(xn,yn), visc(xn,yn)
-real(8) :: rhs0(xn,yn)
+real(4) :: rho(xn,yn), visc(xn,yn)
+real(4) :: rhs0(xn,yn)
 integer :: unit
-real(8) :: phiCoarse(xn/cell,yn/cell)
-real(8) :: phi0(xn,yn), phi(xn,yn)
+real(4) :: phiCoarse(xn/cell,yn/cell)
+real(4) :: phi0(xn,yn), phi(xn,yn)
 
 ! netCDF & output stuff
 integer :: xInt, yInt, tInt, hInt, uInt, vInt
@@ -263,24 +263,24 @@ integer :: ncid
 integer :: x_dimid, y_dimid, t_dimid, h_dimid, u_dimid, v_dimid
 integer :: x_varid, y_varid, t_varid, h_varid, u_varid, v_varid
 integer :: i, j, ii, m, n, jj
-real(8) :: yep
+real(4) :: yep
 
 
 
 ! benchmark stuff
-real(8) :: nusseltLocalv(xn,1), nuBar
+real(4) :: nusseltLocalv(xn,1), nuBar
 
 ! geochemical alteration stuff
-real(8) :: alt0(1,altnum)
+real(4) :: alt0(1,altnum)
 
-real(8) :: primaryShift(xn/cell,yn/cell,g_pri), secondaryShift(xn/cell,yn/cell,g_sec)
+real(4) :: primaryShift(xn/cell,yn/cell,g_pri), secondaryShift(xn/cell,yn/cell,g_sec)
 
 
 ! solute transport stuff
-real(8) :: uTransport(xn/cell,yn/cell), vTransport(xn/cell,yn/cell)
-real(8) :: uCoarse(xn/cell,yn/cell), vCoarse(xn/cell,yn/cell)
-real(8) :: psiCoarse(xn/cell,yn/cell), velocitiesCoarse0(xn/cell,2*yn/cell)
-real(8) :: permeability0(xn,yn)
+real(4) :: uTransport(xn/cell,yn/cell), vTransport(xn/cell,yn/cell)
+real(4) :: uCoarse(xn/cell,yn/cell), vCoarse(xn/cell,yn/cell)
+real(4) :: psiCoarse(xn/cell,yn/cell), velocitiesCoarse0(xn/cell,2*yn/cell)
+real(4) :: permeability0(xn,yn)
 
 ! message passing stuff
 integer, parameter :: max_rows = 10000000
@@ -289,32 +289,32 @@ integer :: my_id, root_process, ierr, status(MPI_STATUS_SIZE)
 integer :: num_procs, an_id, num_rows_to_receive
 integer :: avg_rows_per_process, num_rows, num_rows_to_send
 integer :: end_row, sender, start_row, num_rows_received
-real(8) :: vector(max_rows), vector2(max_rows), partial_sum, sum
-real(8) :: local_mean, global_mean
-real(8) :: hLocal(xn*(yn/2)), dt_local
+real(4) :: vector(max_rows), vector2(max_rows), partial_sum, sum
+real(4) :: local_mean, global_mean
+real(4) :: hLocal(xn*(yn/2)), dt_local
 integer :: order
 
 ! formatted message passing arrays
-real(8) :: hLong(xn*(yn/2))
-real(8) :: priLong(xn*(yn/2),g_pri), priLocal(xn*(yn/2),g_pri)
-real(8) :: secLong(xn*(yn/2),g_sec), secLocal(xn*(yn/2),g_sec)
-real(8) :: solLong(xn*(yn/2),g_sol), solLocal(xn*(yn/2),g_sol)
-real(8) :: medLong(xn*(yn/2),g_med), medLocal(xn*(yn/2),g_med)
-real(8) :: priLongBit(xn*(yn/2)), priLocalBit(xn*(yn/2))
-real(8) :: secLongBit(xn*(yn/2)), secLocalBit(xn*(yn/2))
-real(8) :: solLongBit(xn*(yn/2)), solLocalBit(xn*(yn/2))
-real(8) :: medLongBit(xn*(yn/2)), medLocalBit(xn*(yn/2))
-!real(8) :: solLocal0((xn/cell)*(yn/cell),g_sol)
+real(4) :: hLong(xn*(yn/2))
+real(4) :: priLong(xn*(yn/2),g_pri), priLocal(xn*(yn/2),g_pri)
+real(4) :: secLong(xn*(yn/2),g_sec), secLocal(xn*(yn/2),g_sec)
+real(4) :: solLong(xn*(yn/2),g_sol), solLocal(xn*(yn/2),g_sol)
+real(4) :: medLong(xn*(yn/2),g_med), medLocal(xn*(yn/2),g_med)
+real(4) :: priLongBit(xn*(yn/2)), priLocalBit(xn*(yn/2))
+real(4) :: secLongBit(xn*(yn/2)), secLocalBit(xn*(yn/2))
+real(4) :: solLongBit(xn*(yn/2)), solLocalBit(xn*(yn/2))
+real(4) :: medLongBit(xn*(yn/2)), medLocalBit(xn*(yn/2))
+!real(4) :: solLocal0((xn/cell)*(yn/cell),g_sol)
 
 INTEGER(KIND=4) :: id, all=190
 CHARACTER(LEN=10000) :: line
 character(len=45000) :: inputz0
-!real(8) :: alter(1,167)
-!real(8), allocatable :: outmat(:,:)
-real(8) :: outmat(4,190)
+!real(4) :: alter(1,167)
+!real(4), allocatable :: outmat(:,:)
+real(4) :: outmat(4,190)
 ! REAL GRABS
-real(8) :: temp3, timestep3, primary3(5), secondary3(114), solute3(15), medium3(7) ! important information
-real(8) :: water
+real(4) :: temp3, timestep3, primary3(5), secondary3(114), solute3(15), medium3(7) ! important information
+real(4) :: water
 
 ! MIGRATING ALTERATION STUFF
 
@@ -2899,22 +2899,22 @@ end if ! end if restart .ne. 1
 !if ((j .ge. thresh) .and. (mod(j,mstep) .eq. 0)) then
 
 !do i = 1,cstep
-! 				iso(:,:,1) = solute_next(iso(:,:,1),u,v,1.0D+00)
+! 				iso(:,:,1) = solute_next(iso(:,:,1),u,v,1.0)
 ! 				iso(:,:,1) = iso(:,:,1)*exp(-(3.949e-12)*dt)
 !
-! 				iso(:,:,2) = solute_next(iso(:,:,2),u,v,1.0D+00)
+! 				iso(:,:,2) = solute_next(iso(:,:,2),u,v,1.0)
 !end do
-
-if ((param_trace .eq. 1)) then
-				
-				isoTrace(:,:,1) = particles_next(isoTrace(:,:,1),u,v,1.0D+00,ison,particle_sat)
-				
-				do jj = 1,cstep
-				isoTrace(3,:,1) = isoTrace(3,:,1)*exp(-(3.949e-12)*dt/cstep)
-				end do
-				
-! 				inertTrace(:,:) = particles_next(inertTrace,u,v,10.0D+00,inertn,inert_sat)
-end if
+!
+! if ((param_trace .eq. 1)) then
+!
+! 				isoTrace(:,:,1) = particles_next(isoTrace(:,:,1),u,v,1.0,ison,particle_sat)
+!
+! 				do jj = 1,cstep
+! 				isoTrace(3,:,1) = isoTrace(3,:,1)*exp(-(3.949e-12)*dt/cstep)
+! 				end do
+!
+! ! 				inertTrace(:,:) = particles_next(inertTrace,u,v,10.0,inertn,inert_sat)
+! end if
 				
 
 			
@@ -2983,10 +2983,10 @@ end if
 		!do i = 1,cstep_num
 		do i = 1,cstep
 
-! 			iso(:,:,1) = solute_next(iso(:,:,1),u/phi(1,1),v/phi(1,1),1.0D+00)
+! 			iso(:,:,1) = solute_next(iso(:,:,1),u/phi(1,1),v/phi(1,1),1.0)
 ! 			iso(:,:,1) = iso(:,:,1)*exp(-(3.85e-12)*mstep*cstep_int/(cstep_num))
 !
-! 			iso(:,:,2) = solute_next(iso(:,:,2),u/phi(1,1),v/phi(1,1),1.0D+00)
+! 			iso(:,:,2) = solute_next(iso(:,:,2),u/phi(1,1),v/phi(1,1),1.0)
 
 ! 			n=1 ! pH
 ! 			solute(:,:,n) = solute_next(solute(:,:,n),u,v,sea(n))
@@ -3014,8 +3014,8 @@ end if
  	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
  			n=13 ! al
  	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,sea(n))
- 			n=14 ! inert
- 	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,0.1D+00)
+!  			n=14 ! inert
+!  	 		solute(:,:,n) = solute_next(solute(:,:,n),u/phi,v/phi,0.1)
 ! 			do jj = 1,yn/cell
 ! 			do ii = 1,xn/cell
 ! 				solute(ii,jj,13) = max(solute(ii,jj,13),1.0e-8)
@@ -3228,11 +3228,11 @@ end if
 			 secondaryMat(1+(xn/cell)*(j/(mstep*ar)-1):(xn/cell)*(j/(mstep*ar)),1:yn/cell,:)= secondary
 			 soluteMat(1+(xn/cell)*(j/(mstep*ar)-1):(xn/cell)*(j/(mstep*ar)),1:yn/cell,:) = solute
 			 mediumMat(1+(xn/cell)*(j/(mstep*ar)-1):(xn/cell)*(j/(mstep*ar)),1:yn/cell,:) = medium
-			 isoMat(1+(xn/cell)*(j/(mstep*ar)-1):(xn/cell)*(j/(mstep*ar)),1:yn/cell,:) = iso
+! 			 isoMat(1+(xn/cell)*(j/(mstep*ar)-1):(xn/cell)*(j/(mstep*ar)),1:yn/cell,:) = iso
 			 saturationMat(1+(xn/cell)*(j/(mstep*ar)-1):(xn/cell)*(j/(mstep*ar)),1:yn/cell,:) = saturation
 			 
-			 isoTraceMat(:,1+ison*(j/(mstep*ar)-1):ison*(j/(mstep*ar)),:) = isoTrace
-			 inertTraceMat(:,1+inertn*(j/(mstep*ar)-1):inertn*(j/(mstep*ar))) = inertTrace
+! 			 isoTraceMat(:,1+ison*(j/(mstep*ar)-1):ison*(j/(mstep*ar)),:) = isoTrace
+! 			 inertTraceMat(:,1+inertn*(j/(mstep*ar)-1):inertn*(j/(mstep*ar))) = inertTrace
 
 		 
 ! 		 ! get new porosity
@@ -3490,10 +3490,10 @@ end if ! end write if maxval cells on == 1
 
 
 
-if (restart .eq. 1) then
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,1),kind=4), trim(iso_path) // 'iso_c14.txt' )
-yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,2),kind=4), trim(iso_path) // 'iso_control.txt' )
-end if
+! if (restart .eq. 1) then
+! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,1),kind=4), trim(iso_path) // 'iso_c14.txt' )
+! yep = write_matrix ( xn*tn/(cell*mstep*ar), yn/2, real(isoMat(:,(yn/2)+1:,2),kind=4), trim(iso_path) // 'iso_control.txt' )
+! end if
 
 		
 		
@@ -3729,7 +3729,7 @@ write(s_reactive,'(F25.10)') medium3(4)
 kinetics = " precipitate_only"
 !kinetics = " "
 write(s_pressure,'(F25.10)') 250.0 - (medium3(7)/5.0)
-
+ 
 write(si_hematite,'(F25.10)') 1.0! -(solute3(1)*2.5) + 30.0
 
 inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
@@ -3759,69 +3759,69 @@ inputz0 = "SOLUTION 1 " //NEW_LINE('')// &
 
 
 &"EQUILIBRIUM_PHASES 1" //NEW_LINE('')// &
-&"    Kaolinite 0.0 " // trim(s_kaolinite) // kinetics //NEW_LINE('')// &
+&"    Kaolinite 0.0 " // trim(s_kaolinite) // kinetics //NEW_LINE('')// & ! clay
 &"    Goethite 0.0 " // trim(s_goethite) // kinetics //NEW_LINE('')// &
-&"    Celadonite 0.0 " // trim(s_celadonite) // kinetics //NEW_LINE('')// &
-&"    Albite 0.0 " // trim(s_albite) // kinetics //NEW_LINE('')// &
-&"    Calcite 0.0 " // trim(s_calcite) // kinetics //NEW_LINE('')// & ! .135
-&"    Montmor-Na 0.0 " // trim(s_mont_na) // kinetics //NEW_LINE('')// &
-&"    Montmor-K 0.0 " // trim(s_mont_k) // kinetics //NEW_LINE('')// &
-&"    Montmor-Mg 0.0 " // trim(s_mont_mg) // kinetics //NEW_LINE('')// &
-&"    Montmor-Ca 0.0 " // trim(s_mont_ca) // kinetics //NEW_LINE('')// &
-&"    Saponite-Mg 0.0 " // trim(s_saponite) // kinetics //NEW_LINE('')// &
-&"    Stilbite 0.0 " // trim(s_stilbite) // kinetics //NEW_LINE('')// &
+&"    Celadonite 0.0 " // trim(s_celadonite) // kinetics //NEW_LINE('')// & ! mica
+! &"    Albite 0.0 " // trim(s_albite) // kinetics //NEW_LINE('')// & ! plagioclase
+&"    Calcite 1.0 " // trim(s_calcite) // kinetics //NEW_LINE('')// & ! .135
+&"    Montmor-Na 0.0 " // trim(s_mont_na) // kinetics //NEW_LINE('')// & ! smectite
+&"    Montmor-K 0.0 " // trim(s_mont_k) // kinetics //NEW_LINE('')// & ! smectite
+&"    Montmor-Mg 0.0 " // trim(s_mont_mg) // kinetics //NEW_LINE('')// & ! smectite
+&"    Montmor-Ca 0.0 " // trim(s_mont_ca) // kinetics //NEW_LINE('')// & ! smectite
+&"    Saponite-Mg 0.0 " // trim(s_saponite) // kinetics //NEW_LINE('')// & ! smectite
+&"    Stilbite 0.0 " // trim(s_stilbite) // kinetics //NEW_LINE('')// & ! zeolite
 &"    Clinoptilolite-Ca 0.0 " // trim(s_clinoptilolite) // kinetics //NEW_LINE('')// & ! zeolite
 &"    Pyrite 0.0 " // trim(s_pyrite) // kinetics //NEW_LINE('')// &
-&"    Quartz 0.0 " // trim(s_quartz) // kinetics //NEW_LINE('')// &
+! &"    Quartz 0.0 " // trim(s_quartz) // kinetics //NEW_LINE('')// &
 &"    K-Feldspar 0.0 " // trim(s_kspar) // kinetics //NEW_LINE('')// &
 
 ! NEW MINS
- &"    Saponite-Na 0.0 " // trim(s_saponite_na) // kinetics //NEW_LINE('')// &
- &"    Nontronite-Na 0.0 " // trim(s_nont_na) // kinetics //NEW_LINE('')// &
- &"    Nontronite-Mg 0.0 " // trim(s_nont_mg) // kinetics //NEW_LINE('')// &
- &"    Nontronite-K 0.0 " // trim(s_nont_k) // kinetics //NEW_LINE('')// &
- &"    Nontronite-H 0.0 " // trim(s_nont_h) // kinetics //NEW_LINE('')// &
- &"    Nontronite-Ca 0.0 " // trim(s_nont_ca) // kinetics //NEW_LINE('')// &
-&"    Muscovite 0.0 " // trim(s_muscovite) // kinetics //NEW_LINE('')// &
- &"    Mesolite 0.0 " // trim(s_mesolite) // kinetics //NEW_LINE('')// & !!!!!!!!
+ &"    Saponite-Na 0.0 " // trim(s_saponite_na) // kinetics //NEW_LINE('')// & ! smectite
+ &"    Nontronite-Na 0.0 " // trim(s_nont_na) // kinetics //NEW_LINE('')// & ! smectite
+ &"    Nontronite-Mg 0.0 " // trim(s_nont_mg) // kinetics //NEW_LINE('')// & ! smectite
+ &"    Nontronite-K 0.0 " // trim(s_nont_k) // kinetics //NEW_LINE('')// & ! smectite
+!  &"    Nontronite-H 0.0 " // trim(s_nont_h) // kinetics //NEW_LINE('')// & ! smectite
+ &"    Nontronite-Ca 0.0 " // trim(s_nont_ca) // kinetics //NEW_LINE('')// & ! smectite
+! &"    Muscovite 0.0 " // trim(s_muscovite) // kinetics //NEW_LINE('')// & ! mica
+ &"    Mesolite 0.0 " // trim(s_mesolite) // kinetics //NEW_LINE('')// & ! zeolite
  &"    Anhydrite 0.0 " // trim(s_anhydrite) // kinetics //NEW_LINE('')// & ! formerly magnesite
- &"    Smectite-high-Fe-Mg 0.0 " // trim(s_smectite) // kinetics //NEW_LINE('')// &
- &"    Saponite-K 0.0 " // trim(s_saponite_k) // kinetics //NEW_LINE('')// &
-  &"    Vermiculite-Na 0.0 " // trim(s_verm_na) // kinetics //NEW_LINE('')// &
+ &"    Smectite-high-Fe-Mg 0.0 " // trim(s_smectite) // kinetics //NEW_LINE('')// & ! smectite
+ &"    Saponite-K 0.0 " // trim(s_saponite_k) // kinetics //NEW_LINE('')// & ! smectite
+!   &"    Vermiculite-Na 0.0 " // trim(s_verm_na) // kinetics //NEW_LINE('')// &
   &"    Hematite 0.0 " // trim(s_hematite) // kinetics //NEW_LINE('')// &
 ! &"    Hematite " // trim(si_hematite) // trim(s_hematite) // kinetics //NEW_LINE('')// &
 
 !! MINERALS ADDED 10/18/2014
-  &"    Vermiculite-Ca 0.0 " // trim(s_verm_ca) // kinetics //NEW_LINE('')// &
- &"    Analcime 0.0 " // trim(s_analcime) // kinetics //NEW_LINE('')// &
- &"    Phillipsite 0.0 " // trim(s_phillipsite) // kinetics //NEW_LINE('')// &
+!   &"    Vermiculite-Ca 0.0 " // trim(s_verm_ca) // kinetics //NEW_LINE('')// &
+ &"    Analcime 0.0 " // trim(s_analcime) // kinetics //NEW_LINE('')// & ! zeolite
+ &"    Phillipsite 0.0 " // trim(s_phillipsite) // kinetics //NEW_LINE('')// & ! zeolite
    &"    Diopside 0.0 " // trim(s_diopside) // kinetics //NEW_LINE('')// & ! pyroxene
-   &"    Epidote  0.0 " // trim(s_epidote) // kinetics //NEW_LINE('')// &
+!    &"    Epidote  0.0 " // trim(s_epidote) // kinetics //NEW_LINE('')// &
   &"    Gismondine 0.0 " // trim(s_gismondine) // kinetics //NEW_LINE('')// & ! zeolite
   &"    Hedenbergite 0.0 " // trim(s_hedenbergite) // kinetics //NEW_LINE('')// & ! pyroxene
-  &"    Chalcedony 0.0 " // trim(s_chalcedony) // kinetics //NEW_LINE('')// &
-  &"    Vermiculite-Mg 0.0 " // trim(s_verm_mg) // kinetics //NEW_LINE('')// &
- &"    Ferrihydrite 0.0 " // trim(s_ferrihydrite) // kinetics //NEW_LINE('')// &
+!   &"    Chalcedony 0.0 " // trim(s_chalcedony) // kinetics //NEW_LINE('')// & ! quartz
+!   &"    Vermiculite-Mg 0.0 " // trim(s_verm_mg) // kinetics //NEW_LINE('')// &
+ &"    Ferrihydrite 0.0 " // trim(s_ferrihydrite) // kinetics //NEW_LINE('')// & ! iron oxyhydroxide
   &"    Natrolite 0.0 " // trim(s_natrolite) // kinetics //NEW_LINE('')// & ! zeolite
 &"    Talc 0.0 " // trim(s_talc) // kinetics //NEW_LINE('')// &
- &"    Smectite-low-Fe-Mg 0.0 " // trim(s_smectite_low) // kinetics //NEW_LINE('')// &
- &"    Prehnite 0.0 " // trim(s_prehnite) // kinetics //NEW_LINE('')// &
-  &"    Chlorite(14A) 0.0 " // trim(s_chlorite) // kinetics //NEW_LINE('')// &
-  &"    Scolecite 0.0 " // trim(s_scolecite) // kinetics //NEW_LINE('')// &
-  &"    Chamosite-7A 0.0 " // trim(s_chamosite7a) // kinetics //NEW_LINE('')// &
-  &"    Clinochlore-14A 0.0 " // trim(s_clinochlore14a) // kinetics //NEW_LINE('')// &
-  &"    Clinochlore-7A 0.0 " // trim(s_clinochlore7a) // kinetics //NEW_LINE('')// &
+ &"    Smectite-low-Fe-Mg 0.0 " // trim(s_smectite_low) // kinetics //NEW_LINE('')// & ! smectite
+!  &"    Prehnite 0.0 " // trim(s_prehnite) // kinetics //NEW_LINE('')// &
+  &"    Chlorite(14A) 0.0 " // trim(s_chlorite) // kinetics //NEW_LINE('')// & ! chlorite
+  &"    Scolecite 0.0 " // trim(s_scolecite) // kinetics //NEW_LINE('')// & ! zeolite
+  &"    Chamosite-7A 0.0 " // trim(s_chamosite7a) // kinetics //NEW_LINE('')// & ! chlorite
+  &"    Clinochlore-14A 0.0 " // trim(s_clinochlore14a) // kinetics //NEW_LINE('')// & ! chlorite
+  &"    Clinochlore-7A 0.0 " // trim(s_clinochlore7a) // kinetics //NEW_LINE('')// & ! chlorite
  !! NEXT ROUND
 
- &"   Saponite-Ca 0.0 " // trim(s_saponite_ca) // kinetics //NEW_LINE('')// &
- &"   Pyrrhotite 0.0 " // trim(s_pyrrhotite) // kinetics //NEW_LINE('')// &
+ &"   Saponite-Ca 0.0 " // trim(s_saponite_ca) // kinetics //NEW_LINE('')// & ! zeolite
+ &"   Pyrrhotite 0.0 " // trim(s_pyrrhotite) // kinetics //NEW_LINE('')// & ! sulfide
 !  &"   Magnetite 0.0 " // trim(s_magnetite) // kinetics //NEW_LINE('')// &
-  &"   Daphnite-7a 0.0 " // trim(s_daphnite_7a) // kinetics //NEW_LINE('')// &
-  &"   Daphnite-14a 0.0 " // trim(s_daphnite_14a) // kinetics //NEW_LINE('')// &
- &"   Vermiculite-K 0.0 " // trim(s_verm_k) // kinetics //NEW_LINE('')// &
- &"   Aragonite 0.0 " // trim(s_aragonite) // kinetics //NEW_LINE('')// &
+  &"   Daphnite-7a 0.0 " // trim(s_daphnite_7a) // kinetics //NEW_LINE('')// & ! chlorite
+  &"   Daphnite-14a 0.0 " // trim(s_daphnite_14a) // kinetics //NEW_LINE('')// & ! chlorite
+!  &"   Vermiculite-K 0.0 " // trim(s_verm_k) // kinetics //NEW_LINE('')// &
+!  &"   Aragonite 0.0 " // trim(s_aragonite) // kinetics //NEW_LINE('')// &
 ! &" -force_equality"  //NEW_LINE('')// &
- &"   Lepidocrocite 0.0 " // trim(s_lepidocrocite) // kinetics //NEW_LINE('')// &
+ &"   Lepidocrocite 0.0 " // trim(s_lepidocrocite) // kinetics //NEW_LINE('')// & ! iron oxyhydroxide
 
 
 
@@ -4315,7 +4315,7 @@ END IF
 
 				solLocal(m,:) = (/ alt0(1,2), alt0(1,3), alt0(1,4), alt0(1,5), alt0(1,6), &
 				alt0(1,7), alt0(1,8), alt0(1,9), alt0(1,10), alt0(1,11), alt0(1,12), &
-				alt0(1,13), alt0(1,14), alt0(1,15), 0.0D+00/)
+				alt0(1,13), alt0(1,14), alt0(1,15), 0.0/)
 				
 				!write(*,*) solLocal(m,13)
 
@@ -4350,7 +4350,7 @@ END IF
 				medLocal(m,5) = 0.0
 				solLocal(m,:) = (/ solute3(1), solute3(2), solute3(3), solute3(4), solute3(5), &
 				solute3(6), solute3(7), solute3(8), solute3(9), solute3(10), solute3(11), &
-				solute3(12), solute3(13), solute3(14), 0.0D+00/)
+				solute3(12), solute3(13), solute3(14), 0.0/)
 			end if
 
 			
@@ -4436,8 +4436,8 @@ implicit none
 ! 		use globals
 ! 		use initialize
 ! 		implicit none
-! 		real(8) :: velocities(xn,2*yn), psi(xn,yn)
-! 		real(8) :: u0(xn,yn), v0(xn,yn)
+! 		real(4) :: velocities(xn,2*yn), psi(xn,yn)
+! 		real(4) :: u0(xn,yn), v0(xn,yn)
 ! 	end function velocities
 !
 ! end interface
@@ -4447,22 +4447,22 @@ implicit none
 ! integers
 integer :: i, j, n, ii, m=3
 ! inputs 
-real(8) :: sx, sy, qx, qy, rho_in(xn,yn), flux(xn,2), phi_in(xn,yn)
+real(4) :: sx, sy, qx, qy, rho_in(xn,yn), flux(xn,2), phi_in(xn,yn)
 ! velocity stuff
-real(8) :: uf(xn,yn), vf(xn,yn), u_in(xn,yn), v_in(xn,yn)
-real(8) :: u(xn,yn), v(xn,yn), uLong((xn-2)*(yn-2)), vLong((xn-2)*(yn-2))
-real(8) ::  velocities0(xn,2*yn)
+real(4) :: uf(xn,yn), vf(xn,yn), u_in(xn,yn), v_in(xn,yn)
+real(4) :: u(xn,yn), v(xn,yn), uLong((xn-2)*(yn-2)), vLong((xn-2)*(yn-2))
+real(4) ::  velocities0(xn,2*yn)
 ! matrix stuff
-real(8) :: h(xn,yn), h_next(xn,yn), psi(xn,yn)
-! real(8) :: aa((xn-2)*(yn-2),(xn-2)*(yn-2)), a((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
-real(8) :: aBand((xn-2)*(yn-2),5), bBand((xn-2)*(yn-2),5)
-! real(8) :: bb((xn-2)*(yn-2),(xn-2)*(yn-2)), b((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
-real(8) :: h0(xn,yn), hMid(xn,yn), uVec((xn-2)*(yn-2)), h_nextRow((xn-2)*(yn-2))
-real(8) :: kMatLong((xn-2)*(yn-2))
-real(8) :: mn(xn,yn)
-real(8) :: sxMat(xn,yn), syMat(xn,yn), sxLong((xn-2)*(yn-2)), syLong((xn-2)*(yn-2))
-real(8) :: qxMat(xn,yn), qyMat(xn,yn), qxLong((xn-2)*(yn-2)), qyLong((xn-2)*(yn-2))
-real(8) :: frac6_in(yn,2), temp6_in(yn,2), dt_in
+real(4) :: h(xn,yn), h_next(xn,yn), psi(xn,yn)
+! real(4) :: aa((xn-2)*(yn-2),(xn-2)*(yn-2)), a((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
+real(4) :: aBand((xn-2)*(yn-2),5), bBand((xn-2)*(yn-2),5)
+! real(4) :: bb((xn-2)*(yn-2),(xn-2)*(yn-2)), b((xn-2)*(yn-2),(xn-2)*(yn-2)+1)
+real(4) :: h0(xn,yn), hMid(xn,yn), uVec((xn-2)*(yn-2)), h_nextRow((xn-2)*(yn-2))
+real(4) :: kMatLong((xn-2)*(yn-2))
+real(4) :: mn(xn,yn)
+real(4) :: sxMat(xn,yn), syMat(xn,yn), sxLong((xn-2)*(yn-2)), syLong((xn-2)*(yn-2))
+real(4) :: qxMat(xn,yn), qyMat(xn,yn), qxLong((xn-2)*(yn-2)), qyLong((xn-2)*(yn-2))
+real(4) :: frac6_in(yn,2), temp6_in(yn,2), dt_in
 
 
 ! ! calculate velocities from streamfunction values
@@ -5109,8 +5109,8 @@ implicit none
 ! 		use initialize
 ! 		implicit none
 ! 		integer :: rows, cols, dim, i, j, ii, jj
-! 		real(8) :: array(rows,cols), d1, d2, d
-! 		real(8) :: partial(rows,cols)
+! 		real(4) :: array(rows,cols), d1, d2, d
+! 		real(4) :: partial(rows,cols)
 ! 	end function partial
 !
 ! end interface
@@ -5120,18 +5120,18 @@ implicit none
 ! integers
 integer :: i, j, ii, n, m, stage
 ! inputs
-real(8) :: rhs0(xn,yn), rhs1(xn,yn), rhsLong(longP)
-real(8) :: h(xn,yn), psi(xn,yn), rho_in(xn,yn), phi_in(xn,yn), perm_in(xn,yn)
+real(4) :: rhs0(xn,yn), rhs1(xn,yn), rhsLong(longP)
+real(4) :: h(xn,yn), psi(xn,yn), rho_in(xn,yn), phi_in(xn,yn), perm_in(xn,yn)
 ! matrix stuff
-real(8) :: uVec(longP), psiLong((xn)*(yn)), psi_nextRow(longP)
-real(8) :: psi_next(xn,yn)
-real(8) :: mn(xn,yn)
+real(4) :: uVec(longP), psiLong((xn)*(yn)), psi_nextRow(longP)
+real(4) :: psi_next(xn,yn)
+real(4) :: mn(xn,yn)
 ! back to band
-real(8) :: aBand0(longP,2*((yn/2)-2) + 1), band_in(longP,2*((yn/2)-2) + 1)
-real(8) :: rhoLong(longP)
-real(8) :: permx(xn,yn), permy(xn,yn), frac6_in(yn,2)
-real(8) :: permx_left(xn,yn), permx_right(xn,yn), permy_bottom(xn,yn), permy_top(xn,yn)
-real(8) :: psi_f
+real(4) :: aBand0(longP,2*((yn/2)-2) + 1), band_in(longP,2*((yn/2)-2) + 1)
+real(4) :: rhoLong(longP)
+real(4) :: permx(xn,yn), permy(xn,yn), frac6_in(yn,2)
+real(4) :: permx_left(xn,yn), permx_right(xn,yn), permy_bottom(xn,yn), permy_top(xn,yn)
+real(4) :: psi_f
 
 psi_next = 0.0
 
@@ -5384,8 +5384,8 @@ function make_band(perm_in,phi_in,permx,permy,rho_in)
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial(rows,cols)
 	end function partial
 	
 	function partial_edge(array,rows,cols,d1,d2,dim)
@@ -5393,8 +5393,8 @@ function make_band(perm_in,phi_in,permx,permy,rho_in)
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial_edge(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial_edge(rows,cols)
 	end function partial_edge
 	
 	function partial_edge_p(array,rows,cols,d1,d2,dim)
@@ -5402,21 +5402,21 @@ function make_band(perm_in,phi_in,permx,permy,rho_in)
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial_edge_p(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial_edge_p(rows,cols)
 	end function partial_edge_p
 	
 	end interface
 	
 	
 	integer :: i, j, ii, n, m
-	real(8) :: perm_in(xn,yn), phi_in(xn,yn), rho_in(xn,yn)
-	real(8) :: permx(xn,yn), permy(xn,yn), permLong(longP)
-	real(8) :: permxLong(longP), permyLong(longP)
-	real(8) :: innerBand(longP,2*((yn/2)-2) + 1), make_band(longP,2*((yn/2)-2) + 1)
-	real(8) :: permx_left(xn,yn), permx_right(xn,yn), permy_bottom(xn,yn), permy_top(xn,yn)
-	real(8) :: permx_left_long(longP), permx_right_long(longP), permy_bottom_long(longP), permy_top_long(longP)
-	real(8) :: perm_long(longP)
+	real(4) :: perm_in(xn,yn), phi_in(xn,yn), rho_in(xn,yn)
+	real(4) :: permx(xn,yn), permy(xn,yn), permLong(longP)
+	real(4) :: permxLong(longP), permyLong(longP)
+	real(4) :: innerBand(longP,2*((yn/2)-2) + 1), make_band(longP,2*((yn/2)-2) + 1)
+	real(4) :: permx_left(xn,yn), permx_right(xn,yn), permy_bottom(xn,yn), permy_top(xn,yn)
+	real(4) :: permx_left_long(longP), permx_right_long(longP), permy_bottom_long(longP), permy_top_long(longP)
+	real(4) :: perm_long(longP)
 	
 !	phi_in = 1.0
 	
@@ -5564,11 +5564,11 @@ implicit none
 ! integers
 integer :: i, j, ii, n, m, mm, nn, num, num_sat
 ! inputs
-real(8) :: trace_in(5,num), particles_next(5,num)
-real(8) :: uTransport(xn,yn), vTransport(xn,yn)
-real(8) :: u_wt, v_wt, inval
-real(8) :: rando
-real(8) :: r_i, r_ii
+real(4) :: trace_in(5,num), particles_next(5,num)
+real(4) :: uTransport(xn,yn), vTransport(xn,yn)
+real(4) :: u_wt, v_wt, inval
+real(4) :: rando
+real(4) :: r_i, r_ii
 
 
 do mm=1,cstep
@@ -5824,20 +5824,20 @@ implicit none
 ! integers
 integer :: i, j, ii, n, m
 ! inputs
-real(8) :: sol(xn/cell,yn/cell), sol0(xn/cell,yn/cell)
-real(8) :: uTransport(xn/cell,yn/cell), vTransport(xn/cell,yn/cell)
+real(4) :: sol(xn/cell,yn/cell), sol0(xn/cell,yn/cell)
+real(4) :: uTransport(xn/cell,yn/cell), vTransport(xn/cell,yn/cell)
 ! solver stuff
-! real(8) :: uLong((xn/cell-2)*(yn/cell-2)), vLong((xn/cell-2)*(yn/cell-2))
-! real(8) :: aBand((xn/cell-2)*(yn/cell-2),5), bBand((xn/cell-2)*(yn/cell-2),5)
-! real(8) :: qx, qy, solute_next(xn/cell,yn/cell), vec((xn/cell-2)*(yn/cell-2))
-! real(8) :: sol_nextRow((xn/cell-2)*(yn/cell-2))
-real(8) :: uLong(((xn/cell)-2)*((yn/cell)-0)), vLong(((xn/cell)-0)*((yn/cell)-2))
-real(8) :: aBand(((xn/cell)-2)*((yn/cell)-0),5), bBand(((xn/cell)-0)*((yn/cell)-2),5)
-real(8) :: qx, qy, solute_next(xn/cell,yn/cell), vec(((xn/cell)-2)*((yn/cell)-0))
-real(8) :: sol_nextRow(((xn/cell)-2)*((yn/cell)-0)), sol_nextRowB(((xn/cell)-0)*((yn/cell)-2))
-real(8) :: seaw
-real(8) :: bm1(xn,yn), b0(xn,yn), bp1(xn,yn), correction, sigma1, sigma2, sigma1a, sigma1b, sigma2a, sigma2b
-real(8) :: sigma3, sigma4, sigma3a, sigma3b, sigma4a, sigma4b, sigma5, sigma6
+! real(4) :: uLong((xn/cell-2)*(yn/cell-2)), vLong((xn/cell-2)*(yn/cell-2))
+! real(4) :: aBand((xn/cell-2)*(yn/cell-2),5), bBand((xn/cell-2)*(yn/cell-2),5)
+! real(4) :: qx, qy, solute_next(xn/cell,yn/cell), vec((xn/cell-2)*(yn/cell-2))
+! real(4) :: sol_nextRow((xn/cell-2)*(yn/cell-2))
+real(4) :: uLong(((xn/cell)-2)*((yn/cell)-0)), vLong(((xn/cell)-0)*((yn/cell)-2))
+real(4) :: aBand(((xn/cell)-2)*((yn/cell)-0),5), bBand(((xn/cell)-0)*((yn/cell)-2),5)
+real(4) :: qx, qy, solute_next(xn/cell,yn/cell), vec(((xn/cell)-2)*((yn/cell)-0))
+real(4) :: sol_nextRow(((xn/cell)-2)*((yn/cell)-0)), sol_nextRowB(((xn/cell)-0)*((yn/cell)-2))
+real(4) :: seaw
+real(4) :: bm1(xn,yn), b0(xn,yn), bp1(xn,yn), correction, sigma1, sigma2, sigma1a, sigma1b, sigma2a, sigma2b
+real(4) :: sigma3, sigma4, sigma3a, sigma3b, sigma4a, sigma4b, sigma5, sigma6
 
 
 
@@ -5951,7 +5951,7 @@ do i = 2,xn-1
 ! 						sigma1b = (sol0(i,j) - sol0(i-1,j))/dx
 !
 ! 						if (sigma1a*sigma1b .gt. 0.0) then
-! 							sigma1 = sign(1.0D+00,sigma1a)*minval((/abs(sigma1a), abs(sigma1b)/))
+! 							sigma1 = sign(1.0,sigma1a)*minval((/abs(sigma1a), abs(sigma1b)/))
 ! 						end if
 !
 ! 						sigma2 = 0.0
@@ -5959,7 +5959,7 @@ do i = 2,xn-1
 ! 						sigma2b = (sol0(i-1,j) - sol0(i-2,j))/dx
 !
 ! 						if (sigma2a*sigma2b .gt. 0.0) then
-! 							sigma2 = sign(1.0D+00,sigma2a)*minval((/abs(sigma2a), abs(sigma2b)/))
+! 							sigma2 = sign(1.0,sigma2a)*minval((/abs(sigma2a), abs(sigma2b)/))
 ! 						end if
 !
 ! 						correction = (uTransport(i,j)*(dt*mstep/cstep)*0.5/dx) * (sigma1 - sigma2) * (dx - uTransport(i,j)*(dt*mstep/cstep))
@@ -5978,10 +5978,10 @@ do i = 2,xn-1
 						!if (sigma1a*sigma1b .gt. 0.0) then
 							sigma1 = minval((/abs(sigma1a), abs(sigma1b)/))
 							if (sigma1 .eq. abs(sigma1a)) then
-								sigma1 = sign(1.0D+00,sigma1a)*sigma1
+								sigma1 = sign(1.0,sigma1a)*sigma1
 							end if
 							if (sigma1 .eq. abs(sigma1b)) then
-								sigma1 = sign(1.0D+00,sigma1b)*sigma1
+								sigma1 = sign(1.0,sigma1b)*sigma1
 							end if
 							!end if
 						
@@ -5992,10 +5992,10 @@ do i = 2,xn-1
 						!if (sigma3a*sigma3b .gt. 0.0) then
 						sigma3 = minval((/abs(sigma3a), abs(sigma3b)/))
 						if (sigma3 .eq. abs(sigma3a)) then
-							sigma3 = sign(1.0D+00,sigma3a)*sigma3
+							sigma3 = sign(1.0,sigma3a)*sigma3
 						end if
 						if (sigma3 .eq. abs(sigma3b)) then
-							sigma3 = sign(1.0D+00,sigma3b)*sigma3
+							sigma3 = sign(1.0,sigma3b)*sigma3
 						end if
 							!end if
 						
@@ -6003,7 +6003,7 @@ do i = 2,xn-1
 						! choosing sigma5
 						sigma5 = 0.0
 						!if (sigma1*sigma3 .gt. 0.0) then
-							sigma5 = sign(1.0D+00,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
+							sigma5 = sign(1.0,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
 							!end if
 
 
@@ -6017,10 +6017,10 @@ do i = 2,xn-1
 						!if (sigma2a*sigma2b .gt. 0.0) then
 						sigma2 = minval((/abs(sigma2a), abs(sigma2b)/))
 						if (sigma2 .eq. abs(sigma2a)) then
-							sigma2 = sign(1.0D+00,sigma2a)*sigma2
+							sigma2 = sign(1.0,sigma2a)*sigma2
 						end if
 						if (sigma2 .eq. abs(sigma2b)) then
-							sigma2 = sign(1.0D+00,sigma2b)*sigma2
+							sigma2 = sign(1.0,sigma2b)*sigma2
 						end if
 							!end if
 						
@@ -6031,10 +6031,10 @@ do i = 2,xn-1
 						!if (sigma4a*sigma4b .gt. 0.0) then
 						sigma4 = minval((/abs(sigma4a), abs(sigma4b)/))
 						if (sigma4 .eq. abs(sigma4a)) then
-							sigma4 = sign(1.0D+00,sigma4a)*sigma4
+							sigma4 = sign(1.0,sigma4a)*sigma4
 						end if
 						if (sigma4 .eq. abs(sigma4b)) then
-							sigma4 = sign(1.0D+00,sigma4b)*sigma4
+							sigma4 = sign(1.0,sigma4b)*sigma4
 						end if
 							!end if
 						
@@ -6042,7 +6042,7 @@ do i = 2,xn-1
 						! choosing sigma6
 						sigma6 = 0.0
 						!if (sigma2*sigma4 .gt. 0.0) then
-							sigma6 = sign(1.0D+00,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
+							sigma6 = sign(1.0,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
 							!end if
 						
 ! 						write(*,*) "sigma5"
@@ -6070,7 +6070,7 @@ do i = 2,xn-1
 ! 						sigma1b = (sol0(i+1,j) - sol0(i,j))/dx
 !
 ! 						if (sigma1a*sigma1b .gt. 0.0) then
-! 							sigma1 = sign(1.0D+00,sigma1a)*minval((/abs(sigma1a), abs(sigma1b)/))
+! 							sigma1 = sign(1.0,sigma1a)*minval((/abs(sigma1a), abs(sigma1b)/))
 ! 						end if
 !
 ! 						sigma2 = 0.0
@@ -6078,7 +6078,7 @@ do i = 2,xn-1
 ! 						sigma2b = (sol0(i,j) - sol0(i-1,j))/dx
 !
 ! 						if (sigma2a*sigma2b .gt. 0.0) then
-! 							sigma2 = sign(1.0D+00,sigma2a)*minval((/abs(sigma2a), abs(sigma2b)/))
+! 							sigma2 = sign(1.0,sigma2a)*minval((/abs(sigma2a), abs(sigma2b)/))
 ! 						end if
 !
 ! 						correction = (uTransport(i,j)*(dt*mstep/cstep)*0.5/dx) * (sigma1 - sigma2) * (dx - uTransport(i,j)*(dt*mstep/cstep))
@@ -6096,10 +6096,10 @@ do i = 2,xn-1
 						!if (sigma1a*sigma1b .gt. 0.0) then
 							sigma1 = minval((/abs(sigma1a), abs(sigma1b)/))
 							if (sigma1 .eq. abs(sigma1a)) then
-								sigma1 = sign(1.0D+00,sigma1a)*sigma1
+								sigma1 = sign(1.0,sigma1a)*sigma1
 							end if
 							if (sigma1 .eq. abs(sigma1b)) then
-								sigma1 = sign(1.0D+00,sigma1b)*sigma1
+								sigma1 = sign(1.0,sigma1b)*sigma1
 							end if
 							!end if
 						
@@ -6110,10 +6110,10 @@ do i = 2,xn-1
 						!if (sigma3a*sigma3b .gt. 0.0) then
 						sigma3 = minval((/abs(sigma3a), abs(sigma3b)/))
 						if (sigma3 .eq. abs(sigma3a)) then
-							sigma3 = sign(1.0D+00,sigma3a)*sigma3
+							sigma3 = sign(1.0,sigma3a)*sigma3
 						end if
 						if (sigma3 .eq. abs(sigma3b)) then
-							sigma3 = sign(1.0D+00,sigma3b)*sigma3
+							sigma3 = sign(1.0,sigma3b)*sigma3
 						end if
 							!end if
 						
@@ -6121,7 +6121,7 @@ do i = 2,xn-1
 						! choosing sigma5
 						sigma5 = 0.0
 						if (sigma1*sigma3 .gt. 0.0) then
-							sigma5 = sign(1.0D+00,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
+							sigma5 = sign(1.0,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
 						end if
 
 
@@ -6135,10 +6135,10 @@ do i = 2,xn-1
 						!if (sigma2a*sigma2b .gt. 0.0) then
 						sigma2 = minval((/abs(sigma2a), abs(sigma2b)/))
 						if (sigma2 .eq. abs(sigma2a)) then
-							sigma2 = sign(1.0D+00,sigma2a)*sigma2
+							sigma2 = sign(1.0,sigma2a)*sigma2
 						end if
 						if (sigma2 .eq. abs(sigma2b)) then
-							sigma2 = sign(1.0D+00,sigma2b)*sigma2
+							sigma2 = sign(1.0,sigma2b)*sigma2
 						end if
 							!end if
 						
@@ -6149,10 +6149,10 @@ do i = 2,xn-1
 						!if (sigma4a*sigma4b .gt. 0.0) then
 						sigma4 = minval((/abs(sigma4a), abs(sigma4b)/))
 						if (sigma4 .eq. abs(sigma4a)) then
-							sigma4 = sign(1.0D+00,sigma4a)*sigma4
+							sigma4 = sign(1.0,sigma4a)*sigma4
 						end if
 						if (sigma4 .eq. abs(sigma4b)) then
-							sigma4 = sign(1.0D+00,sigma4b)*sigma4
+							sigma4 = sign(1.0,sigma4b)*sigma4
 						end if
 							!end if
 						
@@ -6160,7 +6160,7 @@ do i = 2,xn-1
 						! choosing sigma6
 						sigma6 = 0.0
 						if (sigma2*sigma4 .gt. 0.0) then
-							sigma6 = sign(1.0D+00,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
+							sigma6 = sign(1.0,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
 						end if
 						
 ! 						write(*,*) "sigma5"
@@ -6267,10 +6267,10 @@ do i = 1,xn
 						!if (sigma1a*sigma1b .gt. 0.0) then
 							sigma1 = minval((/abs(sigma1a), abs(sigma1b)/))
 							if (sigma1 .eq. abs(sigma1a)) then
-								sigma1 = sign(1.0D+00,sigma1a)*sigma1
+								sigma1 = sign(1.0,sigma1a)*sigma1
 							end if
 							if (sigma1 .eq. abs(sigma1b)) then
-								sigma1 = sign(1.0D+00,sigma1b)*sigma1
+								sigma1 = sign(1.0,sigma1b)*sigma1
 							end if
 							!end if
 						
@@ -6281,10 +6281,10 @@ do i = 1,xn
 						!if (sigma3a*sigma3b .gt. 0.0) then
 						sigma3 = minval((/abs(sigma3a), abs(sigma3b)/))
 						if (sigma3 .eq. abs(sigma3a)) then
-							sigma3 = sign(1.0D+00,sigma3a)*sigma3
+							sigma3 = sign(1.0,sigma3a)*sigma3
 						end if
 						if (sigma3 .eq. abs(sigma3b)) then
-							sigma3 = sign(1.0D+00,sigma3b)*sigma3
+							sigma3 = sign(1.0,sigma3b)*sigma3
 						end if
 							!end if
 						
@@ -6292,7 +6292,7 @@ do i = 1,xn
 						! choosing sigma5
 						sigma5 = 0.0
 						if (sigma1*sigma3 .gt. 0.0) then
-							sigma5 = sign(1.0D+00,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
+							sigma5 = sign(1.0,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
 						end if
 
 
@@ -6306,10 +6306,10 @@ do i = 1,xn
 						!if (sigma2a*sigma2b .gt. 0.0) then
 						sigma2 = minval((/abs(sigma2a), abs(sigma2b)/))
 						if (sigma2 .eq. abs(sigma2a)) then
-							sigma2 = sign(1.0D+00,sigma2a)*sigma2
+							sigma2 = sign(1.0,sigma2a)*sigma2
 						end if
 						if (sigma2 .eq. abs(sigma2b)) then
-							sigma2 = sign(1.0D+00,sigma2b)*sigma2
+							sigma2 = sign(1.0,sigma2b)*sigma2
 						end if
 							!end if
 						
@@ -6320,10 +6320,10 @@ do i = 1,xn
 						!if (sigma4a*sigma4b .gt. 0.0) then
 						sigma4 = minval((/abs(sigma4a), abs(sigma4b)/))
 						if (sigma4 .eq. abs(sigma4a)) then
-							sigma4 = sign(1.0D+00,sigma4a)*sigma4
+							sigma4 = sign(1.0,sigma4a)*sigma4
 						end if
 						if (sigma4 .eq. abs(sigma4b)) then
-							sigma4 = sign(1.0D+00,sigma4b)*sigma4
+							sigma4 = sign(1.0,sigma4b)*sigma4
 						end if
 							!end if
 						
@@ -6331,7 +6331,7 @@ do i = 1,xn
 						! choosing sigma6
 						sigma6 = 0.0
 						if (sigma2*sigma4 .gt. 0.0) then
-							sigma6 = sign(1.0D+00,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
+							sigma6 = sign(1.0,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
 						end if
 						
 ! 						write(*,*) "sigma5"
@@ -6360,10 +6360,10 @@ do i = 1,xn
 						!if (sigma1a*sigma1b .gt. 0.0) then
 							sigma1 = minval((/abs(sigma1a), abs(sigma1b)/))
 							if (sigma1 .eq. abs(sigma1a)) then
-								sigma1 = sign(1.0D+00,sigma1a)*sigma1
+								sigma1 = sign(1.0,sigma1a)*sigma1
 							end if
 							if (sigma1 .eq. abs(sigma1b)) then
-								sigma1 = sign(1.0D+00,sigma1b)*sigma1
+								sigma1 = sign(1.0,sigma1b)*sigma1
 							end if
 							!end if
 						
@@ -6374,10 +6374,10 @@ do i = 1,xn
 						!if (sigma3a*sigma3b .gt. 0.0) then
 						sigma3 = minval((/abs(sigma3a), abs(sigma3b)/))
 						if (sigma3 .eq. abs(sigma3a)) then
-							sigma3 = sign(1.0D+00,sigma3a)*sigma3
+							sigma3 = sign(1.0,sigma3a)*sigma3
 						end if
 						if (sigma3 .eq. abs(sigma3b)) then
-							sigma3 = sign(1.0D+00,sigma3b)*sigma3
+							sigma3 = sign(1.0,sigma3b)*sigma3
 						end if
 							!end if
 						
@@ -6385,7 +6385,7 @@ do i = 1,xn
 						! choosing sigma5
 						sigma5 = 0.0
 						if (sigma1*sigma3 .gt. 0.0) then
-							sigma5 = sign(1.0D+00,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
+							sigma5 = sign(1.0,sigma1)*maxval((/abs(sigma1), abs(sigma3)/))
 						end if
 
 
@@ -6399,10 +6399,10 @@ do i = 1,xn
 						!if (sigma2a*sigma2b .gt. 0.0) then
 						sigma2 = minval((/abs(sigma2a), abs(sigma2b)/))
 						if (sigma2 .eq. abs(sigma2a)) then
-							sigma2 = sign(1.0D+00,sigma2a)*sigma2
+							sigma2 = sign(1.0,sigma2a)*sigma2
 						end if
 						if (sigma2 .eq. abs(sigma2b)) then
-							sigma2 = sign(1.0D+00,sigma2b)*sigma2
+							sigma2 = sign(1.0,sigma2b)*sigma2
 						end if
 							!end if
 						
@@ -6413,10 +6413,10 @@ do i = 1,xn
 						!if (sigma4a*sigma4b .gt. 0.0) then
 						sigma4 = minval((/abs(sigma4a), abs(sigma4b)/))
 						if (sigma4 .eq. abs(sigma4a)) then
-							sigma4 = sign(1.0D+00,sigma4a)*sigma4
+							sigma4 = sign(1.0,sigma4a)*sigma4
 						end if
 						if (sigma4 .eq. abs(sigma4b)) then
-							sigma4 = sign(1.0D+00,sigma4b)*sigma4
+							sigma4 = sign(1.0,sigma4b)*sigma4
 						end if
 							!end if
 						
@@ -6424,7 +6424,7 @@ do i = 1,xn
 						! choosing sigma6
 						sigma6 = 0.0
 						if (sigma2*sigma4 .gt. 0.0) then
-							sigma6 = sign(1.0D+00,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
+							sigma6 = sign(1.0,sigma2)*maxval((/abs(sigma2), abs(sigma4)/))
 						end if
 						
 ! 						write(*,*) "sigma5"
@@ -6738,10 +6738,10 @@ end function solute_next
 ! ! declare errthing
 !
 ! integer :: order
-! real(8) :: temp, timestep
-! real(8) :: alt_next(1,167)
-! real(8) :: alter0(1,167)
-! real(8) :: primaryList(g_pri), secondaryList(g_sec), soluteList(g_sol), mediumList(g_med)
+! real(4) :: temp, timestep
+! real(4) :: alt_next(1,167)
+! real(4) :: alter0(1,167)
+! real(4) :: primaryList(g_pri), secondaryList(g_sec), soluteList(g_sol), mediumList(g_med)
 !
 ! ! use the alteration module
 ! alter0 = alter(temp-272.9, timestep, primaryList, secondaryList, soluteList, mediumList)
@@ -6772,7 +6772,7 @@ implicit none
   
 ! declare errthing
 integer :: i,j
-real(8) :: h_in(xn,yn), rho_next(xn,yn)
+real(4) :: h_in(xn,yn), rho_next(xn,yn)
 
 
 do i=1,xn
@@ -6802,7 +6802,7 @@ implicit none
   
 ! declare errthing
 integer :: i,j
-real(8) :: h_in, rho_one
+real(4) :: h_in, rho_one
 
 
 		rho_one = rho_fluid*(1.0 - alpha*((h_in-273.0)))
@@ -6833,7 +6833,7 @@ implicit none
   
 ! declare errthing
 integer :: i,j
-real(8) :: h_in(xn,yn), visc_next(xn,yn)
+real(4) :: h_in(xn,yn), visc_next(xn,yn)
 
 
 do i=1,xn
@@ -6878,8 +6878,8 @@ interface
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial_edge(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial_edge(rows,cols)
 	end function partial_edge
 	
 	function partial_edge_p(array,rows,cols,d1,d2,dim)
@@ -6887,16 +6887,16 @@ interface
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial_edge_p(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial_edge_p(rows,cols)
 	end function partial_edge_p
 
 end interface
 
 ! declare errthing
 integer :: i,ii
-real(8) :: velocities(xn,2*yn), psi(xn,yn)
-real(8) :: u0(xn,yn), v0(xn,yn)
+real(4) :: velocities(xn,2*yn), psi(xn,yn)
+real(4) :: u0(xn,yn), v0(xn,yn)
 
 u0 = partial_edge_p(psi,xn,yn,dx,dy,2)
 v0 = -partial_edge_p(psi,xn,yn,dx,dy,1)
@@ -6914,8 +6914,8 @@ function velocitiesCoarse(psiCoarse)
 	use initialize
 	implicit none
 	integer :: i,ii
-	real(8) :: velocitiesCoarse(xn/cell,2*yn/cell), psiCoarse(xn/cell,yn/cell)
-	real(8) :: u0(xn/cell,yn/cell), v0(xn/cell,yn/cell)
+	real(4) :: velocitiesCoarse(xn/cell,2*yn/cell), psiCoarse(xn/cell,yn/cell)
+	real(4) :: u0(xn/cell,yn/cell), v0(xn/cell,yn/cell)
 
 interface
 
@@ -6924,8 +6924,8 @@ interface
 		use initialize
 		implicit none
 		integer :: rows, cols, dim, i, j, ii, jj
-		real(8) :: array(rows,cols), d1, d2, d
-		real(8) :: partial(rows,cols)
+		real(4) :: array(rows,cols), d1, d2, d
+		real(4) :: partial(rows,cols)
 	end function partial
 
 end interface
@@ -6973,8 +6973,8 @@ implicit none
 
 ! declare errthing
 integer :: rows, cols, dim, i, j, ii, jj
-real(8) :: array(rows,cols), d1, d2, d
-real(8) :: partial(rows,cols)
+real(4) :: array(rows,cols), d1, d2, d
+real(4) :: partial(rows,cols)
 
 ! write(*,*) "dim"
 ! write(*,*) rows
@@ -7118,8 +7118,8 @@ implicit none
 
 ! declare errthing
 integer :: rows, cols, dim, i, j, ii, jj
-real(8) :: array(rows,cols), d1, d2, d
-real(8) :: partial_edge(rows,cols)
+real(4) :: array(rows,cols), d1, d2, d
+real(4) :: partial_edge(rows,cols)
 
 ! write(*,*) "dim"
 ! write(*,*) rows
@@ -7322,8 +7322,8 @@ implicit none
 
 ! declare errthing
 integer :: rows, cols, dim, i, j, ii, jj
-real(8) :: array(rows,cols), d1, d2, d
-real(8) :: partial_edge_p(rows,cols)
+real(4) :: array(rows,cols), d1, d2, d
+real(4) :: partial_edge_p(rows,cols)
 
 ! write(*,*) "dim"
 ! write(*,*) rows
